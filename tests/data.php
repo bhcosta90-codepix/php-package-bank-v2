@@ -19,10 +19,10 @@ function mockTimes(MockInterface $mock, string $action, $response = null, $times
     }
 }
 
-function arrayDomainTransaction($type = EnumTransactionType::CREDIT): array
+function arrayDomainTransaction($type = EnumTransactionType::CREDIT, $account = []): array
 {
     return [
-        "account" => new DomainAccount(...arrayDomainAccount()),
+        "account" => DomainAccount::make($account + arrayDomainAccount()),
         "reference" => Uuid::make(),
         "description" => 'testing',
         "value" => 50,
@@ -32,15 +32,10 @@ function arrayDomainTransaction($type = EnumTransactionType::CREDIT): array
     ];
 }
 
-function arrayDomainPixKey(): array
+function arrayDomainPixKey(array $account = []): array
 {
-    $mockDomainAccount = mock(DomainAccount::class);
-    $mockDomainAccount->shouldReceive('toArray');
-    $mockDomainAccount->shouldReceive('credit');
-    $mockDomainAccount->shouldReceive('debit');
-
     return [
-        'account' => $mockDomainAccount,
+        'account' => DomainAccount::make($account + arrayDomainAccount()),
         "kind" => EnumPixType::EMAIL,
         "key" => 'test@test.com',
     ];
