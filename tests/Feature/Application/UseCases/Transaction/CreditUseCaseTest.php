@@ -22,9 +22,13 @@ describe("CreditUseCase Feature Test", function () {
         $pixKeyRepository = new PixKeyRepository();
         $pixKeyRepository->create($pixKey);
 
+        $accountRepository = new AccountRepository();
+        $accountRepository->create($pixKey->account);
+
         $useCase = new CreditUseCase(
             transactionRepository: new TransactionRepository(),
             pixKeyRepository: $pixKeyRepository,
+            accountRepository: $accountRepository,
             eventManager: new EventManager(),
         );
 

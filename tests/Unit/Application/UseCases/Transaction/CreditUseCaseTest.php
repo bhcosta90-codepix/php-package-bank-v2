@@ -9,6 +9,7 @@ use CodePix\Bank\Application\UseCases\Transaction\CreditUseCase;
 use CodePix\Bank\Domain\DomainAccount;
 use CodePix\Bank\Domain\DomainPixKey;
 use CodePix\Bank\Domain\DomainTransaction;
+use Tests\Stubs\Repository\AccountRepository;
 use Tests\Stubs\Repository\PixKeyRepository;
 use Tests\Stubs\Repository\TransactionRepository;
 
@@ -33,9 +34,15 @@ describe("CreditUseCase Unit Test", function () {
         $eventManager = mock(EventManagerInterface::class);
         mockTimes($eventManager, 'dispatch');
 
+        $mockDomainAccount = mock(DomainAccount::class);
+
+        $accountRepository = mock(AccountRepository::class);
+        mockTimes($accountRepository, 'save', $mockDomainAccount);
+
         $useCase = new CreditUseCase(
             transactionRepository: $transactionRepository,
             pixKeyRepository: $pixKeyRepository,
+            accountRepository: $accountRepository,
             eventManager: $eventManager,
         );
 
@@ -58,6 +65,7 @@ describe("CreditUseCase Unit Test", function () {
         $useCase = new CreditUseCase(
             transactionRepository: $transactionRepository,
             pixKeyRepository: $pixKeyRepository,
+            accountRepository: mock(AccountRepository::class),
             eventManager: $eventManager,
         );
 
@@ -81,6 +89,7 @@ describe("CreditUseCase Unit Test", function () {
         $useCase = new CreditUseCase(
             transactionRepository: $transactionRepository,
             pixKeyRepository: $pixKeyRepository,
+            accountRepository: mock(AccountRepository::class),
             eventManager: $eventManager,
         );
 

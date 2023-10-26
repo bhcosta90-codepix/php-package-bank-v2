@@ -7,6 +7,7 @@ namespace CodePix\Bank\Application\UseCases\Transaction;
 use BRCas\CA\Contracts\Event\EventManagerInterface;
 use BRCas\CA\Exceptions\DomainNotFoundException;
 use BRCas\CA\Exceptions\UseCaseException;
+use CodePix\Bank\Application\Repository\AccountRepositoryInterface;
 use CodePix\Bank\Application\Repository\PixKeyRepositoryInterface;
 use CodePix\Bank\Application\Repository\TransactionRepositoryInterface;
 use CodePix\Bank\Domain\DomainAccount;
@@ -21,6 +22,7 @@ class CreditUseCase
     public function __construct(
         protected TransactionRepositoryInterface $transactionRepository,
         protected PixKeyRepositoryInterface $pixKeyRepository,
+        protected AccountRepositoryInterface $accountRepository,
         protected EventManagerInterface $eventManager,
     ) {
         //
@@ -54,7 +56,9 @@ class CreditUseCase
 
         $response->confirmed();
 
-        if ($response = $this->transactionRepository->create($response)) {
+        if (($response = $this->transactionRepository->create($response)) && $this->accountRepository->save(
+                $domainPix->account
+            )) {
             $this->eventManager->dispatch($response->getEvents());
             return $response;
         }
