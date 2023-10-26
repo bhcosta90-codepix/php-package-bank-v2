@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use CodePix\Bank\Domain\DomainAccount;
 use CodePix\Bank\Domain\DomainPixKey;
 use CodePix\Bank\Domain\DomainTransaction;
 use CodePix\Bank\Domain\Enum\EnumPixType;
@@ -11,14 +12,17 @@ use Costa\Entity\Exceptions\NotificationException;
 use Costa\Entity\ValueObject\Uuid;
 
 use function PHPUnit\Framework\assertEquals;
-use function Tests\arrayDomainPixKey;
-use function Tests\dataDomainPixKey;
+use function Tests\mockTimes;
 
-beforeEach(fn() => $this->pix = new DomainPixKey(...arrayDomainPixKey()));
+beforeEach(function () {
+    $this->account = mock(DomainAccount::class);
+    $this->account->shouldReceive('toArray')->andReturn($this->accountResult = []);
+});
 
 describe("DomainTransaction Unit Tests", function () {
     test("creating a new transaction", function () {
         $entity = new DomainTransaction(
+            account: $this->account,
             reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
             description: 'testing',
             value: 50,
@@ -27,6 +31,7 @@ describe("DomainTransaction Unit Tests", function () {
         );
 
         assertEquals([
+            'account' => $this->accountResult,
             'reference' => '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
             'description' => 'testing',
             'value' => 50,
@@ -42,6 +47,7 @@ describe("DomainTransaction Unit Tests", function () {
 
     test("making a transaction", function () {
         $entity = DomainTransaction::make([
+            "account" => $this->account,
             'reference' => '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
             'description' => 'testing',
             'value' => 50,
@@ -53,6 +59,7 @@ describe("DomainTransaction Unit Tests", function () {
         ]);
 
         assertEquals([
+            'account' => $this->accountResult,
             'reference' => '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
             'description' => 'testing',
             'value' => 50,
@@ -66,6 +73,7 @@ describe("DomainTransaction Unit Tests", function () {
         ], $entity->toArray());
 
         $entity = DomainTransaction::make([
+            "account" => $this->account,
             'reference' => '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
             'description' => 'testing',
             'value' => 50,
@@ -77,6 +85,7 @@ describe("DomainTransaction Unit Tests", function () {
         ]);
 
         assertEquals([
+            'account' => $this->accountResult,
             'reference' => '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
             'description' => 'testing',
             'value' => 50,
@@ -90,6 +99,8 @@ describe("DomainTransaction Unit Tests", function () {
         ], $entity->toArray());
 
         $entity = DomainTransaction::make([
+            'account' => $this->accountResult,
+            "account" => $this->account,
             'reference' => '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
             'description' => 'testing',
             'value' => 50,
@@ -106,6 +117,7 @@ describe("DomainTransaction Unit Tests", function () {
 
     test("setting a error at transaction", function () {
         $entity = new DomainTransaction(
+            account: $this->account,
             reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
             description: 'testing',
             value: 50,
@@ -121,6 +133,7 @@ describe("DomainTransaction Unit Tests", function () {
     describe("setting confirmation a transaction", function () {
         test("success", function () {
             $entity = new DomainTransaction(
+                account: $this->account,
                 reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
                 description: 'testing',
                 value: 50,
@@ -133,6 +146,7 @@ describe("DomainTransaction Unit Tests", function () {
 
         test("error", function () {
             $entity = new DomainTransaction(
+                account: $this->account,
                 reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
                 description: 'testing',
                 value: 50,
@@ -150,6 +164,7 @@ describe("DomainTransaction Unit Tests", function () {
     describe("setting completed a transaction", function () {
         test("success", function () {
             $entity = new DomainTransaction(
+                account: $this->account,
                 reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
                 description: 'testing',
                 value: 50,
@@ -162,6 +177,7 @@ describe("DomainTransaction Unit Tests", function () {
 
         test("error", function () {
             $entity = new DomainTransaction(
+                account: $this->account,
                 reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
                 description: 'testing',
                 value: 50,
@@ -178,6 +194,7 @@ describe("DomainTransaction Unit Tests", function () {
         describe("at constructor", function () {
             test("validate property value", function () {
                 expect(fn() => new DomainTransaction(
+                    account: $this->account,
                     reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
                     description: 'testing',
                     value: 0,
@@ -188,6 +205,7 @@ describe("DomainTransaction Unit Tests", function () {
 
             test("validate property description", function () {
                 expect(fn() => new DomainTransaction(
+                    account: $this->account,
                     reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
                     description: 'te',
                     value: 0.01,
@@ -200,6 +218,7 @@ describe("DomainTransaction Unit Tests", function () {
         describe("at make", function () {
             test("validate property value", function () {
                 expect(fn() => DomainTransaction::make(
+                    account: $this->account,
                     reference: '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
                     description: 'testing',
                     value: 0,
@@ -210,6 +229,7 @@ describe("DomainTransaction Unit Tests", function () {
 
             test("validate property description", function () {
                 expect(fn() => DomainTransaction::make(
+                    account: $this->account,
                     reference: '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
                     description: 'te',
                     value: 0.01,

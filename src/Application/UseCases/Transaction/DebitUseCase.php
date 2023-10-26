@@ -38,13 +38,14 @@ class DebitUseCase
         string $kind,
         string $key
     ): DomainTransaction {
-        if (!$this->accountRepository->find($account)) {
+        if (!$accountDb = $this->accountRepository->find($account)) {
             throw new DomainNotFoundException(DomainAccount::class, $account);
         }
 
         $kind = EnumPixType::from($kind);
 
         $response = new DomainTransaction(
+            account: $accountDb,
             reference: null,
             description: $description,
             value: $value,

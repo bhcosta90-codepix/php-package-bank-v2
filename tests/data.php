@@ -21,6 +21,7 @@ function mockTimes(MockInterface $mock, string $action, $response = null, $times
 function arrayDomainTransaction(): array
 {
     return [
+        "account" => new DomainAccount(...arrayDomainAccount()),
         "reference" => Uuid::make(),
         "description" => 'testing',
         "value" => 50,

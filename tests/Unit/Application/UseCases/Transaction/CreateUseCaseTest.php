@@ -13,6 +13,7 @@ use CodePix\Bank\Domain\DomainAccount;
 use CodePix\Bank\Domain\DomainPixKey;
 use CodePix\Bank\Domain\DomainTransaction;
 
+use function Tests\arrayDomainAccount;
 use function Tests\dataDomainAccount;
 use function Tests\dataDomainPixKey;
 use function Tests\dataDomainTransaction;
@@ -30,6 +31,7 @@ describe("DebitUseCase Unit Test", function () {
         mockTimes($mockEventManager, 'dispatch');
 
         $mockAccount = mock(DomainAccount::class);
+        mockTimes($mockAccount, "toArray", []);
 
         $accountRepository = mock(AccountRepositoryInterface::class);
         mockTimes($accountRepository, "find", $mockAccount);
@@ -81,6 +83,7 @@ describe("DebitUseCase Unit Test", function () {
         $mockEventManager = mock(EventManagerInterface::class);
 
         $mockAccount = mock(DomainAccount::class);
+        mockTimes($mockAccount, 'toArray', []);
 
         $accountRepository = mock(AccountRepositoryInterface::class);
         mockTimes($accountRepository, "find", $mockAccount);
