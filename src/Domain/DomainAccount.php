@@ -16,13 +16,6 @@ class DomainAccount extends Data
         parent::__construct();
     }
 
-    protected function rules(): array
-    {
-        return [
-            'name' => 'min:3',
-        ];
-    }
-
     public function credit(float $value): self
     {
         $this->balance += $value;
@@ -33,5 +26,12 @@ class DomainAccount extends Data
     {
         $this->balance -= $value;
         return $this;
+    }
+
+    protected function rules(): array
+    {
+        return [
+            'name' => 'min:3',
+        ];
     }
 }
