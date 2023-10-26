@@ -6,6 +6,8 @@ use BRCas\CA\Exceptions\UseCaseException;
 use CodePix\Bank\Application\Repository\PixKeyRepositoryInterface;
 use CodePix\Bank\Application\UseCases\PixKey\CreateUseCase;
 use CodePix\Bank\Domain\DomainPixKey;
+use CodePix\Bank\Integration\DTO\RegisterOutput;
+use CodePix\Bank\Integration\PixKeyIntegrationInterface;
 use Costa\Entity\Exceptions\EntityException;
 
 use function PHPUnit\Framework\assertEquals;
@@ -20,7 +22,10 @@ describe("CreateUseCase Unit Test", function () {
         mockTimes($pixKeyRepository, 'find');
         mockTimes($pixKeyRepository, 'create', $mockDomainPixKey);
 
-        $useCase = new CreateUseCase(pixKeyRepository: $pixKeyRepository);
+        $pixKeyIntegration = mock(PixKeyIntegrationInterface::class);
+        mockTimes($pixKeyIntegration, 'register', new RegisterOutput('testing'));
+
+        $useCase = new CreateUseCase(pixKeyRepository: $pixKeyRepository, pixKeyIntegration: $pixKeyIntegration);
         $response = $useCase->exec('id', '7b9ad99b-7c44-461b-a682-b2e87e9c3c60');
 
         assertEquals($mockDomainPixKey, $response);
@@ -32,7 +37,10 @@ describe("CreateUseCase Unit Test", function () {
         $pixKeyRepository = mock(PixKeyRepositoryInterface::class);
         mockTimes($pixKeyRepository, 'find', $mockDomainPixKey);
 
-        $useCase = new CreateUseCase(pixKeyRepository: $pixKeyRepository);
+        $pixKeyIntegration = mock(PixKeyIntegrationInterface::class);
+        mockTimes($pixKeyIntegration, 'register', new RegisterOutput('testing'));
+
+        $useCase = new CreateUseCase(pixKeyRepository: $pixKeyRepository, pixKeyIntegration: $pixKeyIntegration);
         expect(fn() => $useCase->exec('id', '7b9ad99b-7c44-461b-a682-b2e87e9c3c60'))->toThrow(
             new EntityException("This pix is already registered in our database")
         );
@@ -43,9 +51,24 @@ describe("CreateUseCase Unit Test", function () {
         mockTimes($pixKeyRepository, 'find');
         mockTimes($pixKeyRepository, 'create');
 
-        $useCase = new CreateUseCase(pixKeyRepository: $pixKeyRepository);
+        $pixKeyIntegration = mock(PixKeyIntegrationInterface::class);
+        mockTimes($pixKeyIntegration, 'register', new RegisterOutput('testing'));
+
+        $useCase = new CreateUseCase(pixKeyRepository: $pixKeyRepository, pixKeyIntegration: $pixKeyIntegration);
         expect(fn() => $useCase->exec('id', '7b9ad99b-7c44-461b-a682-b2e87e9c3c60'))->toThrow(
             new UseCaseException("We were unable to register this pix in our database")
+        );
+    });
+
+    test("Exception when you cannot integrate with the central bank", function(){
+        $pixKeyRepository = mock(PixKeyRepositoryInterface::class);
+
+        $pixKeyIntegration = mock(PixKeyIntegrationInterface::class);
+        mockTimes($pixKeyIntegration, 'register');
+
+        $useCase = new CreateUseCase(pixKeyRepository: $pixKeyRepository, pixKeyIntegration: $pixKeyIntegration);
+        expect(fn() => $useCase->exec('id', '7b9ad99b-7c44-461b-a682-b2e87e9c3c60'))->toThrow(
+            new UseCaseException("The integration with PIX went wrong")
         );
     });
 });

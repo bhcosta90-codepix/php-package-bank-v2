@@ -71,13 +71,4 @@ describe("DomainPixKey Unit Tests", function () {
             'updated_at' => '2020-01-01 00:00:00',
         ], $entity->toArray());
     });
-
-    test("creating a new pix key with type id", function () {
-        $entity = new DomainPixKey(
-            kind: EnumPixType::ID,
-            key: null,
-        );
-
-        assertNotNull($entity->key);
-    });
 });

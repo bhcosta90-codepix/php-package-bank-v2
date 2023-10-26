@@ -12,19 +12,8 @@ class DomainPixKey extends Data
 {
     public function __construct(
         protected EnumPixType $kind,
-        protected ?string $key,
+        protected string $key,
     ) {
-        if ($this->kind == EnumPixType::ID && empty($this->key)) {
-            $this->key = (string)Uuid::make();
-        }
-
         parent::__construct();
-    }
-
-    protected function rules(): array
-    {
-        return [
-            'key' => 'required',
-        ];
     }
 }
