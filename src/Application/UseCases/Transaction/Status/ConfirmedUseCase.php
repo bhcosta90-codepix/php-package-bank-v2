@@ -7,6 +7,7 @@ namespace CodePix\Bank\Application\UseCases\Transaction\Status;
 use BRCas\CA\Contracts\Event\EventManagerInterface;
 use BRCas\CA\Exceptions\DomainNotFoundException;
 use BRCas\CA\Exceptions\UseCaseException;
+use CodePix\Bank\Application\Repository\AccountRepositoryInterface;
 use CodePix\Bank\Application\Repository\TransactionRepositoryInterface;
 use CodePix\Bank\Domain\DomainTransaction;
 use Costa\Entity\Exceptions\EntityException;
@@ -15,6 +16,7 @@ class ConfirmedUseCase
 {
     public function __construct(
         protected TransactionRepositoryInterface $transactionRepository,
+        protected AccountRepositoryInterface $accountRepository,
         protected EventManagerInterface $eventManager
     ) {
         //
