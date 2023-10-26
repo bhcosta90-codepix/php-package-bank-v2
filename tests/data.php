@@ -34,13 +34,13 @@ function arrayDomainTransaction($type = EnumTransactionType::CREDIT): array
 
 function arrayDomainPixKey(): array
 {
-    $mock = mock(DomainAccount::class);
-    $mock->shouldReceive('toArray');
-    $mock->shouldReceive('credit');
-    $mock->shouldReceive('debit');
+    $mockDomainAccount = mock(DomainAccount::class);
+    $mockDomainAccount->shouldReceive('toArray');
+    $mockDomainAccount->shouldReceive('credit');
+    $mockDomainAccount->shouldReceive('debit');
 
     return [
-        'account' => $mock,
+        'account' => $mockDomainAccount,
         "kind" => EnumPixType::EMAIL,
         "key" => 'test@test.com',
     ];
