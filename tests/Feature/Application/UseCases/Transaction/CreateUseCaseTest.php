@@ -12,7 +12,7 @@ use Tests\Stubs\Repository\TransactionRepository;
 
 use function PHPUnit\Framework\assertEquals;
 
-describe("CreateUseCase Unit Test", function () {
+describe("CreateUseCase Feature Test", function () {
     test("create a new entity", function () {
         $pixKeyRepository = new PixKeyRepository();
         $pixKeyRepository->create(new DomainPixKey(EnumPixType::EMAIL, "test@test.com"));

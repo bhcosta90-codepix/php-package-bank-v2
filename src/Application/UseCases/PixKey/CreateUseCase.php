@@ -23,7 +23,7 @@ class CreateUseCase
      * @throws UseCaseException
      * @throws EntityException
      */
-    public function exec(string $kind, string $key): DomainPixKey
+    public function exec(string $kind, ?string $key): DomainPixKey
     {
         $kind = EnumPixType::from($kind);
         $response = new DomainPixKey(
@@ -31,7 +31,7 @@ class CreateUseCase
             key: $key,
         );
 
-        if ($this->pixKeyRepository->find($kind, $key)) {
+        if ($key && $this->pixKeyRepository->find($kind, $key)) {
             throw new EntityException("This pix is already registered in our database");
         }
 

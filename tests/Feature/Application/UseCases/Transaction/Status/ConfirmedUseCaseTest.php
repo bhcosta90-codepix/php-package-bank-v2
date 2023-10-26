@@ -18,7 +18,7 @@ use function Tests\dataDomainTransaction;
 use function Tests\mockTimes;
 
 
-describe("ConfirmedUseCase Unit Test", function () {
+describe("ConfirmedUseCase Feature Test", function () {
     test("save a transaction", function () {
         $transaction = new DomainTransaction(...dataDomainTransaction());
         $transaction->pending();
