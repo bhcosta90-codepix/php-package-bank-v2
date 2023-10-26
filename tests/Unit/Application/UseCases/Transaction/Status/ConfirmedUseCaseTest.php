@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use BRCas\CA\Contracts\Event\EventManagerInterface;
+use BRCas\CA\Contracts\Transaction\DatabaseTransactionInterface;
 use BRCas\CA\Exceptions\DomainNotFoundException;
 use BRCas\CA\Exceptions\UseCaseException;
 use CodePix\Bank\Application\Repository\AccountRepositoryInterface;
@@ -10,6 +11,8 @@ use CodePix\Bank\Application\Repository\TransactionRepositoryInterface;
 use CodePix\Bank\Application\UseCases\Transaction\Status\ConfirmedUseCase;
 use CodePix\Bank\Domain\DomainAccount;
 use CodePix\Bank\Domain\DomainTransaction;
+
+use Tests\Stubs\DatabaseTransaction;
 
 use function Tests\arrayDomainTransaction;
 use function Tests\mockTimes;
@@ -31,10 +34,13 @@ describe("ConfirmedUseCase Unit Test", function () {
         $accountRepository = mock(AccountRepositoryInterface::class);
         mockTimes($accountRepository, 'save', $this->mockDomainTransaction->account);
 
+        $mockDatabaseTransactionInterface = mock(DatabaseTransactionInterface::class);
+
         $useCase = new ConfirmedUseCase(
             transactionRepository: $transactionRepository,
             accountRepository: $accountRepository,
             eventManager: $mockEventManager,
+            databaseTransaction: $mockDatabaseTransactionInterface,
         );
         $useCase->exec('7b9ad99b-7c44-461b-a682-b2e87e9c3c60');
     });
@@ -47,10 +53,13 @@ describe("ConfirmedUseCase Unit Test", function () {
 
         $accountRepository = mock(AccountRepositoryInterface::class);
 
+        $mockDatabaseTransactionInterface = mock(DatabaseTransactionInterface::class);
+
         $useCase = new ConfirmedUseCase(
             transactionRepository: $transactionRepository,
             accountRepository: $accountRepository,
             eventManager: $mockEventManager,
+            databaseTransaction: $mockDatabaseTransactionInterface,
         );
         expect(fn() => $useCase->exec('7b9ad99b-7c44-461b-a682-b2e87e9c3c60'))->toThrow(
             new DomainNotFoundException(DomainTransaction::class, "7b9ad99b-7c44-461b-a682-b2e87e9c3c60")
@@ -76,6 +85,7 @@ describe("ConfirmedUseCase Unit Test", function () {
             transactionRepository: $transactionRepository,
             accountRepository: $accountRepository,
             eventManager: $mockEventManager,
+            databaseTransaction: new DatabaseTransaction(),
         );
 
         expect(fn() => $useCase->exec('7b9ad99b-7c44-461b-a682-b2e87e9c3c60'))->toThrow(

@@ -6,6 +6,7 @@ use CodePix\Bank\Application\UseCases\Transaction\Status\ConfirmedUseCase;
 use CodePix\Bank\Domain\DomainTransaction;
 use CodePix\Bank\Domain\Enum\EnumTransactionStatus;
 use CodePix\Bank\Domain\Enum\EnumTransactionType;
+use Tests\Stubs\DatabaseTransaction;
 use Tests\Stubs\EventManager;
 use Tests\Stubs\Repository\AccountRepository;
 use Tests\Stubs\Repository\TransactionRepository;
@@ -26,6 +27,7 @@ describe("ConfirmedUseCase Feature Test", function () {
             transactionRepository: $transactionRepository,
             accountRepository: new AccountRepository(),
             eventManager: new EventManager(),
+            databaseTransaction: new DatabaseTransaction(),
         );
         $response = $useCase->exec($transaction->id());
         assertEquals(EnumTransactionStatus::CONFIRMED, $response->status);
