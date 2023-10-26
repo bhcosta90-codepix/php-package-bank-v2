@@ -6,6 +6,7 @@ namespace Tests\Stubs\Repository;
 
 use CodePix\Bank\Application\Repository\AccountRepositoryInterface;
 use CodePix\Bank\Domain\DomainAccount;
+use CodePix\Bank\Domain\DomainTransaction;
 
 class AccountRepository implements AccountRepositoryInterface
 {
@@ -30,5 +31,12 @@ class AccountRepository implements AccountRepositoryInterface
         return $entity;
     }
 
+    public function save(DomainAccount $entity): ?DomainAccount
+    {
+        if ($this->find($entity->id())) {
+            return $entity;
+        }
 
+        return null;
+    }
 }

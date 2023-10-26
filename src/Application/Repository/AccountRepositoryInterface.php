@@ -11,4 +11,6 @@ interface AccountRepositoryInterface
     public function find(string $id): ?DomainAccount;
 
     public function create(DomainAccount $entity): ?DomainAccount;
+
+    public function save(DomainAccount $entity): ?DomainAccount;
 }
