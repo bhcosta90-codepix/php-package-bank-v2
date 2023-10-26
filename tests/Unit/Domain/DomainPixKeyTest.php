@@ -8,7 +8,6 @@ use CodePix\Bank\Domain\Enum\EnumPixType;
 
 use function PHPUnit\Framework\assertEquals;
 use function Tests\arrayDomainAccount;
-use function Tests\dataDomainAccount;
 
 describe("DomainPixKey Unit Tests", function () {
     test("creating a new transaction", function () {

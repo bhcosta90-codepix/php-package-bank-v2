@@ -10,7 +10,6 @@ use Tests\Stubs\Repository\TransactionRepository;
 
 use function PHPUnit\Framework\assertEquals;
 use function Tests\arrayDomainTransaction;
-use function Tests\dataDomainTransaction;
 
 
 describe("ConfirmedUseCase Feature Test", function () {

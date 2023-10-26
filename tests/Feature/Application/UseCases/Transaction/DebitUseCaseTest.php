@@ -11,7 +11,6 @@ use Tests\Stubs\Repository\TransactionRepository;
 
 use function PHPUnit\Framework\assertEquals;
 use function Tests\arrayDomainAccount;
-use function Tests\dataDomainAccount;
 
 describe("DebitUseCase Feature Test", function () {
     test("create a new entity", function () {

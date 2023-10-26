@@ -11,9 +11,6 @@ use CodePix\Bank\Application\UseCases\Transaction\DebitUseCase;
 use CodePix\Bank\Domain\DomainAccount;
 use CodePix\Bank\Domain\DomainTransaction;
 
-use function Tests\dataDomainAccount;
-use function Tests\dataDomainPixKey;
-use function Tests\dataDomainTransaction;
 use function Tests\mockTimes;
 
 describe("DebitUseCase Unit Test", function () {

@@ -14,8 +14,6 @@ use CodePix\Bank\Integration\PixKeyIntegrationInterface;
 use Costa\Entity\Exceptions\EntityException;
 
 use function PHPUnit\Framework\assertEquals;
-use function Tests\dataDomainAccount;
-use function Tests\dataDomainPixKey;
 use function Tests\mockTimes;
 
 describe("DebitUseCase Unit Test", function () {

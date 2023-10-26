@@ -12,6 +12,8 @@ use CodePix\Bank\Application\Repository\TransactionRepositoryInterface;
 use CodePix\Bank\Domain\DomainAccount;
 use CodePix\Bank\Domain\DomainTransaction;
 use CodePix\Bank\Domain\Enum\EnumPixType;
+use CodePix\Bank\Domain\Enum\EnumTransactionType;
+use Costa\Entity\Exceptions\EntityException;
 use Costa\Entity\Exceptions\NotificationException;
 
 class CreditUseCase
@@ -28,6 +30,7 @@ class CreditUseCase
      * @throws UseCaseException
      * @throws NotificationException
      * @throws DomainNotFoundException
+     * @throws EntityException
      */
     public function exec(
         string $description,
@@ -35,19 +38,21 @@ class CreditUseCase
         string $kind,
         string $key
     ): DomainTransaction {
-        if (!$this->pixKeyRepository->find($kind = EnumPixType::from($kind), $key)) {
+        if (!$domainPix = $this->pixKeyRepository->find($kind = EnumPixType::from($kind), $key)) {
             throw new DomainNotFoundException(DomainAccount::class, $key . " and kind: {$kind->value}");
         }
 
         $response = new DomainTransaction(
+            account: $domainPix->account,
             reference: null,
             description: $description,
             value: $value,
             kind: $kind,
             key: $key,
+            type: EnumTransactionType::CREDIT
         );
 
-        $response->pending();
+        $response->confirmed();
 
         if ($response = $this->transactionRepository->create($response)) {
             $this->eventManager->dispatch($response->getEvents());

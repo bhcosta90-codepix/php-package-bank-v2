@@ -12,6 +12,7 @@ use Costa\Entity\Exceptions\NotificationException;
 use Costa\Entity\ValueObject\Uuid;
 
 use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertTrue;
 
 beforeEach(function () {
     $this->reference = mock(Uuid::class);
@@ -20,6 +21,7 @@ beforeEach(function () {
     $this->account = mock(DomainAccount::class);
     $this->account->shouldReceive('toArray')->andReturn($this->accountResult = []);
     $this->account->shouldReceive('debit');
+    $this->account->shouldReceive('credit');
 });
 
 describe("DomainTransaction Unit Tests", function () {
@@ -48,6 +50,37 @@ describe("DomainTransaction Unit Tests", function () {
             'cancel_description' => null,
             'type' => 1,
         ], $entity->toArray());
+    });
+
+    test("can confirmed a transaction when a transaction is credit", function () {
+        $transaction = new DomainTransaction(
+            account: $this->account,
+            reference: $this->reference,
+            description: 'testing',
+            value: 50,
+            kind: EnumPixType::EMAIL,
+            key: 'test@test.com',
+            type: EnumTransactionType::CREDIT,
+        );
+
+        $transaction->confirmed();
+        assertTrue(true);
+    });
+
+    test("cannot confirmed a transaction when a transaction is credit", function () {
+        $transaction = new DomainTransaction(
+            account: $this->account,
+            reference: $this->reference,
+            description: 'testing',
+            value: 50,
+            kind: EnumPixType::EMAIL,
+            key: 'test@test.com',
+            type: EnumTransactionType::DEBIT,
+        );
+
+        expect(fn() => $transaction->confirmed())->toThrow(
+            new EntityException('Only pending transaction can be confirmed')
+        );
     });
 
     test("making a transaction", function () {
