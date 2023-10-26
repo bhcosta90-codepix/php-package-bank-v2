@@ -7,8 +7,10 @@ namespace CodePix\Bank\Application\UseCases\Transaction;
 use BRCas\CA\Contracts\Event\EventManagerInterface;
 use BRCas\CA\Exceptions\DomainNotFoundException;
 use BRCas\CA\Exceptions\UseCaseException;
+use CodePix\Bank\Application\Repository\AccountRepositoryInterface;
 use CodePix\Bank\Application\Repository\PixKeyRepositoryInterface;
 use CodePix\Bank\Application\Repository\TransactionRepositoryInterface;
+use CodePix\Bank\Domain\DomainAccount;
 use CodePix\Bank\Domain\DomainTransaction;
 use CodePix\Bank\Domain\Enum\EnumPixType;
 use Costa\Entity\Exceptions\NotificationException;
@@ -18,6 +20,7 @@ class CreateUseCase
 {
     public function __construct(
         protected TransactionRepositoryInterface $transactionRepository,
+        protected AccountRepositoryInterface $accountRepository,
         protected EventManagerInterface $eventManager,
     ) {
         //
@@ -26,6 +29,7 @@ class CreateUseCase
     /**
      * @throws UseCaseException
      * @throws NotificationException
+     * @throws DomainNotFoundException
      */
     public function exec(
         string $account,
@@ -34,6 +38,10 @@ class CreateUseCase
         string $kind,
         string $key
     ): DomainTransaction {
+        if (!$this->accountRepository->find($account)) {
+            throw new DomainNotFoundException(DomainAccount::class, $account);
+        }
+
         $kind = EnumPixType::from($kind);
 
         $response = new DomainTransaction(

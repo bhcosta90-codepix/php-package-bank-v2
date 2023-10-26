@@ -8,6 +8,7 @@ use CodePix\Bank\Domain\DomainPixKey;
 use CodePix\Bank\Domain\Enum\EnumPixType;
 use CodePix\Bank\Domain\Enum\EnumTransactionStatus;
 use Tests\Stubs\EventManager;
+use Tests\Stubs\Repository\AccountRepository;
 use Tests\Stubs\Repository\PixKeyRepository;
 use Tests\Stubs\Repository\TransactionRepository;
 
@@ -18,10 +19,12 @@ describe("CreateUseCase Feature Test", function () {
     test("create a new entity", function () {
         $account = new DomainAccount(...dataDomainAccount());
 
-        $transactionRepository = new TransactionRepository();
+        $accountRepository = new AccountRepository();
+        $accountRepository->create($account);
 
         $useCase = new CreateUseCase(
-            transactionRepository: $transactionRepository,
+            transactionRepository: new TransactionRepository(),
+            accountRepository: $accountRepository,
             eventManager: new EventManager(),
         );
 
