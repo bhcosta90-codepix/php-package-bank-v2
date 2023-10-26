@@ -15,7 +15,7 @@ use function Tests\mockTimes;
 
 describe("CompletedUseCase Unit Test", function () {
     test("save a transaction", function () {
-        $mockDomainTransaction = mock(DomainTransaction::class, dataDomainTransaction());
+        $mockDomainTransaction = mock(DomainTransaction::class);
         mockTimes($mockDomainTransaction, 'completed');
         mockTimes($mockDomainTransaction, 'getEvents');
 
@@ -44,7 +44,7 @@ describe("CompletedUseCase Unit Test", function () {
     });
 
     test("exception when save a transaction", function () {
-        $mockDomainTransaction = mock(DomainTransaction::class, dataDomainTransaction());
+        $mockDomainTransaction = mock(DomainTransaction::class);
         mockTimes($mockDomainTransaction, 'completed');
         mockTimes($mockDomainTransaction, 'getEvents');
 

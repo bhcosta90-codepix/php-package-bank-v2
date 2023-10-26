@@ -11,7 +11,7 @@ use function Tests\mockTimes;
 
 describe("EventTransactionCreating Unit Test", function () {
     test("payload", function () {
-        $mock = mock(DomainTransaction::class, dataDomainTransaction());
+        $mock = mock(DomainTransaction::class);
         mockTimes($mock, 'toArray', $result = ['resa' => '123']);
 
         $event = new EventTransactionCreating($mock);

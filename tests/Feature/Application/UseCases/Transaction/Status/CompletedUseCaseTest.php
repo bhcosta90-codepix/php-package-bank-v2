@@ -13,13 +13,14 @@ use Tests\Stubs\EventManager;
 use Tests\Stubs\Repository\TransactionRepository;
 
 use function PHPUnit\Framework\assertEquals;
+use function Tests\arrayDomainTransaction;
 use function Tests\dataDomainTransaction;
 use function Tests\mockTimes;
 
 
 describe("CompletedUseCase Feature Test", function () {
     test("save a transaction", function () {
-        $transaction = new DomainTransaction(...dataDomainTransaction());
+        $transaction = new DomainTransaction(...arrayDomainTransaction());
         $transaction->pending()->confirmed();
 
         $transactionRepository = new TransactionRepository();

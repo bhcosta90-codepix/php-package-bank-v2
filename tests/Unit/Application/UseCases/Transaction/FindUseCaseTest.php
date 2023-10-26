@@ -12,7 +12,7 @@ use function Tests\mockTimes;
 
 describe("FindUseCase Unit Test", function () {
     test("get pix", function () {
-        $mockDomainTransaction = mock(DomainTransaction::class, dataDomainTransaction());
+        $mockDomainTransaction = mock(DomainTransaction::class);
 
         $transactionRepository = mock(TransactionRepositoryInterface::class);
         mockTimes($transactionRepository, 'find', $mockDomainTransaction);

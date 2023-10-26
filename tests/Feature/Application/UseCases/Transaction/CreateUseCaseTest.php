@@ -13,11 +13,12 @@ use Tests\Stubs\Repository\PixKeyRepository;
 use Tests\Stubs\Repository\TransactionRepository;
 
 use function PHPUnit\Framework\assertEquals;
+use function Tests\arrayDomainAccount;
 use function Tests\dataDomainAccount;
 
 describe("CreateUseCase Feature Test", function () {
     test("create a new entity", function () {
-        $account = new DomainAccount(...dataDomainAccount());
+        $account = new DomainAccount(...arrayDomainAccount());
 
         $accountRepository = new AccountRepository();
         $accountRepository->create($account);

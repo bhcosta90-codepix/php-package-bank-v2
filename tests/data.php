@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests;
 
 use CodePix\Bank\Domain\DomainAccount;
-use CodePix\Bank\Domain\DomainPixKey;
 use CodePix\Bank\Domain\Enum\EnumPixType;
 use Costa\Entity\ValueObject\Uuid;
 use Mockery\MockInterface;
@@ -19,7 +18,7 @@ function mockTimes(MockInterface $mock, string $action, $response = null, $times
     }
 }
 
-function dataDomainTransaction(): array
+function arrayDomainTransaction(): array
 {
     return [
         "reference" => Uuid::make(),
@@ -30,27 +29,27 @@ function dataDomainTransaction(): array
     ];
 }
 
-function dataDomainPixKey(): array
+function arrayDomainPixKey(): array
 {
     return [
-        'account' => new DomainAccount(...dataDomainAccount()),
+        'account' => new DomainAccount(...arrayDomainAccount()),
         "kind" => EnumPixType::EMAIL,
         "key" => 'test@test.com',
     ];
 }
 
-function dataDomainAccount(): array
+function arrayDomainAccount(): array
 {
     return [
         'name' => 'testing',
     ];
 }
 
-function dataMock(): array
-{
-    return [
-        'id' => (string)Uuid::make(),
-        'created_at' => (new DateTime())->format('Y-m-d H:i:s'),
-        'updated_at' => (new DateTime())->format('Y-m-d H:i:s'),
-    ];
-}
+//function dataMock(): array
+//{
+//    return [
+//        'id' => (string)Uuid::make(),
+//        'created_at' => (new DateTime())->format('Y-m-d H:i:s'),
+//        'updated_at' => (new DateTime())->format('Y-m-d H:i:s'),
+//    ];
+//}

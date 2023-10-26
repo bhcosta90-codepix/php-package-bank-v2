@@ -20,7 +20,7 @@ use function Tests\mockTimes;
 
 describe("CreateUseCase Unit Test", function () {
     test("create a new entity", function () {
-        $mockDomainTransaction = mock(DomainTransaction::class, dataDomainTransaction());
+        $mockDomainTransaction = mock(DomainTransaction::class);
         mockTimes($mockDomainTransaction, 'getEvents', []);
 
         $transactionRepository = mock(TransactionRepositoryInterface::class);
@@ -29,7 +29,7 @@ describe("CreateUseCase Unit Test", function () {
         $mockEventManager = mock(EventManagerInterface::class);
         mockTimes($mockEventManager, 'dispatch');
 
-        $mockAccount = mock(DomainAccount::class, dataDomainAccount());
+        $mockAccount = mock(DomainAccount::class);
 
         $accountRepository = mock(AccountRepositoryInterface::class);
         mockTimes($accountRepository, "find", $mockAccount);
@@ -80,7 +80,7 @@ describe("CreateUseCase Unit Test", function () {
 
         $mockEventManager = mock(EventManagerInterface::class);
 
-        $mockAccount = mock(DomainAccount::class, dataDomainAccount());
+        $mockAccount = mock(DomainAccount::class);
 
         $accountRepository = mock(AccountRepositoryInterface::class);
         mockTimes($accountRepository, "find", $mockAccount);
