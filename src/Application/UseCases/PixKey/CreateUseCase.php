@@ -35,12 +35,12 @@ class CreateUseCase
     {
         $kind = EnumPixType::from($kind);
 
-        if (!$pix = $this->pixKeyIntegration->register($kind, $key)) {
-            throw new UseCaseException("The integration with PIX went wrong");
-        }
-
         if (!$domainAccount = $this->accountRepository->find($account)) {
             throw new DomainNotFoundException(DomainAccount::class, $account);
+        }
+
+        if (!$pix = $this->pixKeyIntegration->register($kind, $key)) {
+            throw new UseCaseException("The integration with PIX went wrong");
         }
 
         $response = new DomainPixKey(

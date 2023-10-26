@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use BRCas\CA\Contracts\Event\EventManagerInterface;
+use BRCas\CA\Exceptions\DomainNotFoundException;
 use BRCas\CA\Exceptions\UseCaseException;
 use CodePix\Bank\Application\Repository\AccountRepositoryInterface;
 use CodePix\Bank\Application\Repository\PixKeyRepositoryInterface;
@@ -48,20 +49,13 @@ describe("CreateUseCase Unit Test", function () {
         );
     });
 
-    test("exception when to pix do not exist", function () {
-        $mockDomainTransaction = mock(DomainTransaction::class, dataDomainTransaction());
-        mockTimes($mockDomainTransaction, 'getEvents', []);
-
+    test("exception when account do not exist", function () {
         $transactionRepository = mock(TransactionRepositoryInterface::class);
-        mockTimes($transactionRepository, "create", $mockDomainTransaction);
 
         $mockEventManager = mock(EventManagerInterface::class);
-        mockTimes($mockEventManager, 'dispatch');
-
-        $mockAccount = mock(DomainAccount::class, dataDomainAccount());
 
         $accountRepository = mock(AccountRepositoryInterface::class);
-        mockTimes($accountRepository, "find", $mockAccount);
+        mockTimes($accountRepository, "find");
 
         $useCase = new CreateUseCase(
             transactionRepository: $transactionRepository,
@@ -69,12 +63,14 @@ describe("CreateUseCase Unit Test", function () {
             eventManager: $mockEventManager,
         );
 
-        $useCase->exec(
+        expect(fn() => $useCase->exec(
             "af4d8146-c829-46b6-8642-da0a0bdc2884",
             "testing",
             50,
             "email",
             "test@test.com"
+        ))->toThrow(
+            new DomainNotFoundException(DomainAccount::class, "af4d8146-c829-46b6-8642-da0a0bdc2884")
         );
     });
 

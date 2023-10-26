@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use BRCas\CA\Exceptions\DomainNotFoundException;
 use BRCas\CA\Exceptions\UseCaseException;
 use CodePix\Bank\Application\Repository\AccountRepositoryInterface;
 use CodePix\Bank\Application\Repository\PixKeyRepositoryInterface;
@@ -108,7 +109,10 @@ describe("CreateUseCase Unit Test", function () {
         $pixKeyIntegration = mock(PixKeyIntegrationInterface::class);
         mockTimes($pixKeyIntegration, 'register');
 
+        $mockDomainAccount = mock(DomainAccount::class);
+
         $accountRepository = mock(AccountRepositoryInterface::class);
+        mockTimes($accountRepository, 'find', $mockDomainAccount);
 
         $useCase = new CreateUseCase(
             pixKeyRepository: $pixKeyRepository,
@@ -120,5 +124,20 @@ describe("CreateUseCase Unit Test", function () {
         )->toThrow(
             new UseCaseException("The integration with PIX went wrong")
         );
+    });
+
+    test("exception when do not exist account", function () {
+        $accountRepository = mock(AccountRepositoryInterface::class);
+        mockTimes($accountRepository, 'find');
+
+        $useCase = new CreateUseCase(
+            pixKeyRepository: mock(PixKeyRepositoryInterface::class),
+            pixKeyIntegration: mock(PixKeyIntegrationInterface::class),
+            accountRepository: $accountRepository
+        );
+
+        expect(
+            fn() => $useCase->exec('2896e395-d646-4828-a014-1ec625243dc7', 'id', '7b9ad99b-7c44-461b-a682-b2e87e9c3c60')
+        )->toThrow(new DomainNotFoundException(DomainAccount::class, '2896e395-d646-4828-a014-1ec625243dc7'));
     });
 });
