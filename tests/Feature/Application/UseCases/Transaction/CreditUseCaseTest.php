@@ -5,6 +5,7 @@ declare(strict_types=1);
 use CodePix\Bank\Application\UseCases\Transaction\CreditUseCase;
 use CodePix\Bank\Domain\DomainPixKey;
 use CodePix\Bank\Domain\Enum\EnumTransactionStatus;
+use Tests\Stubs\DatabaseTransaction;
 use Tests\Stubs\EventManager;
 use Tests\Stubs\Repository\AccountRepository;
 use Tests\Stubs\Repository\PixKeyRepository;
@@ -28,6 +29,7 @@ describe("CreditUseCase Feature Test", function () {
             pixKeyRepository: $pixKeyRepository,
             accountRepository: $accountRepository,
             eventManager: new EventManager(),
+            databaseTransaction: new DatabaseTransaction(),
         );
 
         $response = $useCase->exec(

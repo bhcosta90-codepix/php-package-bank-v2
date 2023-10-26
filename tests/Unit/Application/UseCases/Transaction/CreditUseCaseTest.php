@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use BRCas\CA\Contracts\Event\EventManagerInterface;
+use BRCas\CA\Contracts\Transaction\DatabaseTransactionInterface;
 use BRCas\CA\Exceptions\DomainNotFoundException;
 use BRCas\CA\Exceptions\UseCaseException;
 use CodePix\Bank\Application\UseCases\Transaction\CreditUseCase;
@@ -39,11 +40,15 @@ describe("CreditUseCase Unit Test", function () {
         $accountRepository = mock(AccountRepository::class);
         mockTimes($accountRepository, 'save', $mockDomainAccount);
 
+        $databaseTransaction = mock(DatabaseTransactionInterface::class);
+        mockTimes($databaseTransaction, 'commit');
+
         $useCase = new CreditUseCase(
             transactionRepository: $transactionRepository,
             pixKeyRepository: $pixKeyRepository,
             accountRepository: $accountRepository,
             eventManager: $eventManager,
+            databaseTransaction: $databaseTransaction
         );
 
         $useCase->exec(
@@ -62,11 +67,14 @@ describe("CreditUseCase Unit Test", function () {
 
         $eventManager = mock(EventManagerInterface::class);
 
+        $databaseTransaction = mock(DatabaseTransactionInterface::class);
+
         $useCase = new CreditUseCase(
             transactionRepository: $transactionRepository,
             pixKeyRepository: $pixKeyRepository,
             accountRepository: mock(AccountRepository::class),
             eventManager: $eventManager,
+            databaseTransaction: $databaseTransaction,
         );
 
         expect(fn() => $useCase->exec(
@@ -86,11 +94,15 @@ describe("CreditUseCase Unit Test", function () {
 
         $eventManager = mock(EventManagerInterface::class);
 
+        $databaseTransaction = mock(DatabaseTransactionInterface::class);
+        mockTimes($databaseTransaction, "rollback");
+
         $useCase = new CreditUseCase(
             transactionRepository: $transactionRepository,
             pixKeyRepository: $pixKeyRepository,
             accountRepository: mock(AccountRepository::class),
             eventManager: $eventManager,
+            databaseTransaction: $databaseTransaction
         );
 
         expect(
