@@ -12,6 +12,7 @@ use CodePix\Bank\Application\Repository\TransactionRepositoryInterface;
 use CodePix\Bank\Domain\DomainAccount;
 use CodePix\Bank\Domain\DomainTransaction;
 use CodePix\Bank\Domain\Enum\EnumPixType;
+use CodePix\Bank\Domain\Enum\EnumTransactionType;
 use Costa\Entity\Exceptions\NotificationException;
 
 class DebitUseCase
@@ -49,6 +50,7 @@ class DebitUseCase
             value: $value,
             kind: $kind,
             key: $key,
+            type: EnumTransactionType::DEBIT,
         );
         $response->pending();
 

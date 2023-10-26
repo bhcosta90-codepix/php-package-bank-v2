@@ -6,6 +6,7 @@ namespace Tests;
 
 use CodePix\Bank\Domain\DomainAccount;
 use CodePix\Bank\Domain\Enum\EnumPixType;
+use CodePix\Bank\Domain\Enum\EnumTransactionType;
 use Costa\Entity\ValueObject\Uuid;
 use Mockery\MockInterface;
 
@@ -18,7 +19,7 @@ function mockTimes(MockInterface $mock, string $action, $response = null, $times
     }
 }
 
-function arrayDomainTransaction(): array
+function arrayDomainTransaction($type = EnumTransactionType::CREDIT): array
 {
     return [
         "account" => new DomainAccount(...arrayDomainAccount()),
@@ -27,6 +28,7 @@ function arrayDomainTransaction(): array
         "value" => 50,
         "kind" => EnumPixType::EMAIL,
         "key" => "test@test.com",
+        'type' => $type,
     ];
 }
 

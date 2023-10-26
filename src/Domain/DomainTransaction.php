@@ -6,6 +6,7 @@ namespace CodePix\Bank\Domain;
 
 use CodePix\Bank\Domain\Enum\EnumPixType;
 use CodePix\Bank\Domain\Enum\EnumTransactionStatus;
+use CodePix\Bank\Domain\Enum\EnumTransactionType;
 use CodePix\Bank\Domain\Events\EventTransactionCompleted;
 use CodePix\Bank\Domain\Events\EventTransactionConfirmed;
 use CodePix\Bank\Domain\Events\EventTransactionCreating;
@@ -27,6 +28,7 @@ class DomainTransaction extends Data
         protected float $value,
         protected EnumPixType $kind,
         protected string $key,
+        protected EnumTransactionType $type,
     ) {
         parent::__construct();
     }

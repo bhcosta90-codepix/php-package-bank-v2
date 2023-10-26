@@ -6,6 +6,7 @@ use CodePix\Bank\Domain\DomainAccount;
 use CodePix\Bank\Domain\DomainTransaction;
 use CodePix\Bank\Domain\Enum\EnumPixType;
 use CodePix\Bank\Domain\Enum\EnumTransactionStatus;
+use CodePix\Bank\Domain\Enum\EnumTransactionType;
 use Costa\Entity\Exceptions\EntityException;
 use Costa\Entity\Exceptions\NotificationException;
 use Costa\Entity\ValueObject\Uuid;
@@ -28,7 +29,8 @@ describe("DomainTransaction Unit Tests", function () {
             description: 'testing',
             value: 50,
             kind: EnumPixType::EMAIL,
-            key: 'test@test.com'
+            key: 'test@test.com',
+            type: EnumTransactionType::DEBIT,
         );
 
         assertEquals([
@@ -43,6 +45,7 @@ describe("DomainTransaction Unit Tests", function () {
             'updated_at' => $entity->updatedAt(),
             'status' => 'open',
             'cancel_description' => null,
+            'type' => 1,
         ], $entity->toArray());
     });
 
@@ -57,6 +60,7 @@ describe("DomainTransaction Unit Tests", function () {
             'id' => '4393e8bc-73f7-11ee-b962-0242ac120002',
             'created_at' => '2020-01-01 00:00:00',
             'updated_at' => '2020-01-01 00:00:00',
+            "type" => EnumTransactionType::DEBIT,
         ]);
 
         assertEquals([
@@ -71,6 +75,7 @@ describe("DomainTransaction Unit Tests", function () {
             'updated_at' => '2020-01-01 00:00:00',
             'status' => 'open',
             'cancel_description' => null,
+            'type' => 1,
         ], $entity->toArray());
 
         $entity = DomainTransaction::make([
@@ -83,6 +88,7 @@ describe("DomainTransaction Unit Tests", function () {
             'id' => '4393e8bc-73f7-11ee-b962-0242ac120002',
             'createdAt' => '2020-01-01 00:00:00',
             'updatedAt' => '2020-01-01 00:00:00',
+            "type" => EnumTransactionType::DEBIT,
         ]);
 
         assertEquals([
@@ -97,6 +103,7 @@ describe("DomainTransaction Unit Tests", function () {
             'updated_at' => '2020-01-01 00:00:00',
             'status' => 'open',
             'cancel_description' => null,
+            'type' => 1,
         ], $entity->toArray());
 
         $entity = DomainTransaction::make([
@@ -110,6 +117,7 @@ describe("DomainTransaction Unit Tests", function () {
             'id' => '4393e8bc-73f7-11ee-b962-0242ac120002',
             'createdAt' => '2020-01-01 00:00:00',
             'updatedAt' => '2020-01-01 00:00:00',
+            "type" => EnumTransactionType::DEBIT,
         ]);
 
         assertEquals('confirmed', $entity->status->value);
@@ -122,7 +130,8 @@ describe("DomainTransaction Unit Tests", function () {
             description: 'testing',
             value: 50,
             kind: EnumPixType::EMAIL,
-            key: 'test@test.com'
+            key: 'test@test.com',
+            type: EnumTransactionType::DEBIT,
         );
 
         $entity->error('testing');
@@ -138,7 +147,8 @@ describe("DomainTransaction Unit Tests", function () {
                 description: 'testing',
                 value: 50,
                 kind: EnumPixType::EMAIL,
-                key: 'test@test.com'
+                key: 'test@test.com',
+                type: EnumTransactionType::DEBIT,
             );
             $entity->pending()->confirmed();
             assertEquals('confirmed', $entity->status->value);
@@ -151,7 +161,8 @@ describe("DomainTransaction Unit Tests", function () {
                 description: 'testing',
                 value: 50,
                 kind: EnumPixType::EMAIL,
-                key: 'test@test.com'
+                key: 'test@test.com',
+                type: EnumTransactionType::DEBIT,
             );
             $entity->pending()->confirmed();
 
@@ -169,7 +180,8 @@ describe("DomainTransaction Unit Tests", function () {
                 description: 'testing',
                 value: 50,
                 kind: EnumPixType::EMAIL,
-                key: 'test@test.com'
+                key: 'test@test.com',
+                type: EnumTransactionType::DEBIT,
             );
             $entity->pending()->confirmed()->completed();
             assertEquals('completed', $entity->status->value);
@@ -182,7 +194,8 @@ describe("DomainTransaction Unit Tests", function () {
                 description: 'testing',
                 value: 50,
                 kind: EnumPixType::EMAIL,
-                key: 'test@test.com'
+                key: 'test@test.com',
+                type: EnumTransactionType::DEBIT,
             );
             expect(fn() => $entity->completed())->toThrow(
                 new EntityException('Only confirmed transactions can be completed')
@@ -199,7 +212,8 @@ describe("DomainTransaction Unit Tests", function () {
                     description: 'testing',
                     value: 0,
                     kind: EnumPixType::EMAIL,
-                    key: 'test@test.com'
+                    key: 'test@test.com',
+                    type: EnumTransactionType::DEBIT,
                 ))->toThrow(NotificationException::class);
             });
 
@@ -210,7 +224,8 @@ describe("DomainTransaction Unit Tests", function () {
                     description: 'te',
                     value: 0.01,
                     kind: EnumPixType::EMAIL,
-                    key: 'test@test.com'
+                    key: 'test@test.com',
+                    type: EnumTransactionType::DEBIT,
                 ))->toThrow(NotificationException::class);
             });
         });
@@ -223,7 +238,8 @@ describe("DomainTransaction Unit Tests", function () {
                     description: 'testing',
                     value: 0,
                     kind: EnumPixType::EMAIL,
-                    key: 'test@test.com'
+                    key: 'test@test.com',
+                    type: EnumTransactionType::DEBIT,
                 ))->toThrow(NotificationException::class);
             });
 
@@ -234,7 +250,8 @@ describe("DomainTransaction Unit Tests", function () {
                     description: 'te',
                     value: 0.01,
                     kind: EnumPixType::EMAIL,
-                    key: 'test@test.com'
+                    key: 'test@test.com',
+                    type: EnumTransactionType::DEBIT,
                 ))->toThrow(NotificationException::class);
             });
         });
