@@ -18,7 +18,7 @@ use function Tests\dataDomainAccount;
 use function Tests\dataDomainPixKey;
 use function Tests\mockTimes;
 
-describe("CreateUseCase Unit Test", function () {
+describe("DebitUseCase Unit Test", function () {
     test("create a new entity", function () {
         $mockDomainPixKey = mock(DomainPixKey::class);
 

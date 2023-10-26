@@ -8,7 +8,7 @@ use BRCas\CA\Exceptions\UseCaseException;
 use CodePix\Bank\Application\Repository\AccountRepositoryInterface;
 use CodePix\Bank\Application\Repository\PixKeyRepositoryInterface;
 use CodePix\Bank\Application\Repository\TransactionRepositoryInterface;
-use CodePix\Bank\Application\UseCases\Transaction\CreateUseCase;
+use CodePix\Bank\Application\UseCases\Transaction\DebitUseCase;
 use CodePix\Bank\Domain\DomainAccount;
 use CodePix\Bank\Domain\DomainPixKey;
 use CodePix\Bank\Domain\DomainTransaction;
@@ -18,7 +18,7 @@ use function Tests\dataDomainPixKey;
 use function Tests\dataDomainTransaction;
 use function Tests\mockTimes;
 
-describe("CreateUseCase Unit Test", function () {
+describe("DebitUseCase Unit Test", function () {
     test("create a new entity", function () {
         $mockDomainTransaction = mock(DomainTransaction::class);
         mockTimes($mockDomainTransaction, 'getEvents', []);
@@ -34,7 +34,7 @@ describe("CreateUseCase Unit Test", function () {
         $accountRepository = mock(AccountRepositoryInterface::class);
         mockTimes($accountRepository, "find", $mockAccount);
 
-        $useCase = new CreateUseCase(
+        $useCase = new DebitUseCase(
             transactionRepository: $transactionRepository,
             accountRepository: $accountRepository,
             eventManager: $mockEventManager,
@@ -57,7 +57,7 @@ describe("CreateUseCase Unit Test", function () {
         $accountRepository = mock(AccountRepositoryInterface::class);
         mockTimes($accountRepository, "find");
 
-        $useCase = new CreateUseCase(
+        $useCase = new DebitUseCase(
             transactionRepository: $transactionRepository,
             accountRepository: $accountRepository,
             eventManager: $mockEventManager,
@@ -85,7 +85,7 @@ describe("CreateUseCase Unit Test", function () {
         $accountRepository = mock(AccountRepositoryInterface::class);
         mockTimes($accountRepository, "find", $mockAccount);
 
-        $useCase = new CreateUseCase(
+        $useCase = new DebitUseCase(
             transactionRepository: $transactionRepository,
             accountRepository: $accountRepository,
             eventManager: $mockEventManager,

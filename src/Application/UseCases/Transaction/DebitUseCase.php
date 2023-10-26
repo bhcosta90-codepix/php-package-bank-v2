@@ -16,7 +16,7 @@ use CodePix\Bank\Domain\Enum\EnumPixType;
 use Costa\Entity\Exceptions\NotificationException;
 use Costa\Entity\ValueObject\Uuid;
 
-class CreateUseCase
+class DebitUseCase
 {
     public function __construct(
         protected TransactionRepositoryInterface $transactionRepository,

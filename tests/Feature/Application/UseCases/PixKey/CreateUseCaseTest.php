@@ -19,7 +19,7 @@ beforeEach(function(){
     $this->accountRepository->create($this->account);
 });
 
-describe("CreateUseCase Feature Test", function () {
+describe("DebitUseCase Feature Test", function () {
     test("create with data", function () {
         $useCase = new CreateUseCase(
             pixKeyRepository: new PixKeyRepository(),
