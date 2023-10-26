@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 use BRCas\CA\Contracts\Event\EventManagerInterface;
 use BRCas\CA\Exceptions\UseCaseException;
-use CodePix\System\Application\Repository\PixKeyRepositoryInterface;
-use CodePix\System\Application\Repository\TransactionRepositoryInterface;
-use CodePix\System\Application\UseCases\Transaction\CreateUseCase;
-use CodePix\System\Domain\DomainPixKey;
-use CodePix\System\Domain\DomainTransaction;
+use CodePix\Bank\Application\Repository\PixKeyRepositoryInterface;
+use CodePix\Bank\Application\Repository\TransactionRepositoryInterface;
+use CodePix\Bank\Application\UseCases\Transaction\CreateUseCase;
+use CodePix\Bank\Domain\DomainPixKey;
+use CodePix\Bank\Domain\DomainTransaction;
 
 use function Tests\dataDomainPixKey;
 use function Tests\dataDomainTransaction;

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-use CodePix\System\Application\UseCases\Transaction\CreateUseCase;
-use CodePix\System\Domain\DomainPixKey;
-use CodePix\System\Domain\Enum\EnumPixType;
-use CodePix\System\Domain\Enum\EnumTransactionStatus;
+use CodePix\Bank\Application\UseCases\Transaction\CreateUseCase;
+use CodePix\Bank\Domain\DomainPixKey;
+use CodePix\Bank\Domain\Enum\EnumPixType;
+use CodePix\Bank\Domain\Enum\EnumTransactionStatus;
 use Tests\Stubs\EventManager;
 use Tests\Stubs\Repository\PixKeyRepository;
 use Tests\Stubs\Repository\TransactionRepository;

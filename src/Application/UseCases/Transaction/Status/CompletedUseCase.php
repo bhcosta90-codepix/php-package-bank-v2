@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace CodePix\System\Application\UseCases\Transaction\Status;
+namespace CodePix\Bank\Application\UseCases\Transaction\Status;
 
 use BRCas\CA\Contracts\Event\EventManagerInterface;
 use BRCas\CA\Exceptions\DomainNotFoundException;
 use BRCas\CA\Exceptions\UseCaseException;
-use CodePix\System\Application\Repository\TransactionRepositoryInterface;
-use CodePix\System\Domain\DomainTransaction;
+use CodePix\Bank\Application\Repository\TransactionRepositoryInterface;
+use CodePix\Bank\Domain\DomainTransaction;
 use Costa\Entity\Exceptions\EntityException;
 
 class CompletedUseCase

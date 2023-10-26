@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace CodePix\System\Application\Repository;
+namespace CodePix\Bank\Application\Repository;
 
-use CodePix\System\Domain\DomainTransaction;
+use CodePix\Bank\Domain\DomainTransaction;
 
 interface TransactionRepositoryInterface
 {

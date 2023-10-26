@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-use CodePix\System\Domain\DomainPixKey;
-use CodePix\System\Domain\DomainTransaction;
-use CodePix\System\Domain\Enum\EnumPixType;
-use CodePix\System\Domain\Enum\EnumTransactionStatus;
+use CodePix\Bank\Domain\DomainPixKey;
+use CodePix\Bank\Domain\DomainTransaction;
+use CodePix\Bank\Domain\Enum\EnumPixType;
+use CodePix\Bank\Domain\Enum\EnumTransactionStatus;
 use Costa\Entity\Exceptions\EntityException;
 use Costa\Entity\Exceptions\NotificationException;
 use Costa\Entity\ValueObject\Uuid;

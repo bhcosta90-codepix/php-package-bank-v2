@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace CodePix\System\Application\UseCases\Transaction;
+namespace CodePix\Bank\Application\UseCases\Transaction;
 
 use BRCas\CA\Contracts\Event\EventManagerInterface;
 use BRCas\CA\Exceptions\DomainNotFoundException;
 use BRCas\CA\Exceptions\UseCaseException;
-use CodePix\System\Application\Repository\PixKeyRepositoryInterface;
-use CodePix\System\Application\Repository\TransactionRepositoryInterface;
-use CodePix\System\Domain\DomainTransaction;
-use CodePix\System\Domain\Enum\EnumPixType;
+use CodePix\Bank\Application\Repository\PixKeyRepositoryInterface;
+use CodePix\Bank\Application\Repository\TransactionRepositoryInterface;
+use CodePix\Bank\Domain\DomainTransaction;
+use CodePix\Bank\Domain\Enum\EnumPixType;
 use Costa\Entity\Exceptions\NotificationException;
 use Costa\Entity\ValueObject\Uuid;
 

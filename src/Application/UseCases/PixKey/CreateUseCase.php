@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace CodePix\System\Application\UseCases\PixKey;
+namespace CodePix\Bank\Application\UseCases\PixKey;
 
 use BRCas\CA\Exceptions\UseCaseException;
-use CodePix\System\Application\Repository\PixKeyRepositoryInterface;
-use CodePix\System\Domain\DomainPixKey;
-use CodePix\System\Domain\Enum\EnumPixType;
+use CodePix\Bank\Application\Repository\PixKeyRepositoryInterface;
+use CodePix\Bank\Domain\DomainPixKey;
+use CodePix\Bank\Domain\Enum\EnumPixType;
 use Costa\Entity\Exceptions\EntityException;
 use Costa\Entity\Exceptions\NotificationException;
 

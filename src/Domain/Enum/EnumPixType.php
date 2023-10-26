@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace CodePix\System\Domain\Enum;
+namespace CodePix\Bank\Domain\Enum;
 
 enum EnumPixType: string
 {

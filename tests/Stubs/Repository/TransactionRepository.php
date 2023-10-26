@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Stubs\Repository;
 
-use CodePix\System\Application\Repository\TransactionRepositoryInterface;
-use CodePix\System\Domain\DomainTransaction;
+use CodePix\Bank\Application\Repository\TransactionRepositoryInterface;
+use CodePix\Bank\Domain\DomainTransaction;
 
 class TransactionRepository implements TransactionRepositoryInterface
 {

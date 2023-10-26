@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace CodePix\System\Domain;
+namespace CodePix\Bank\Domain;
 
-use CodePix\System\Domain\Enum\EnumPixType;
-use CodePix\System\Domain\Enum\EnumTransactionStatus;
-use CodePix\System\Domain\Events\EventTransactionCompleted;
-use CodePix\System\Domain\Events\EventTransactionConfirmed;
-use CodePix\System\Domain\Events\EventTransactionCreating;
-use CodePix\System\Domain\Events\EventTransactionError;
+use CodePix\Bank\Domain\Enum\EnumPixType;
+use CodePix\Bank\Domain\Enum\EnumTransactionStatus;
+use CodePix\Bank\Domain\Events\EventTransactionCompleted;
+use CodePix\Bank\Domain\Events\EventTransactionConfirmed;
+use CodePix\Bank\Domain\Events\EventTransactionCreating;
+use CodePix\Bank\Domain\Events\EventTransactionError;
 use Costa\Entity\Data;
 use Costa\Entity\Exceptions\EntityException;
 use Costa\Entity\ValueObject\Uuid;

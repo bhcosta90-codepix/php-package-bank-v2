@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use CodePix\System\Domain\Events\EventTransactionCompleted;
+use CodePix\Bank\Domain\Events\EventTransactionCompleted;
 use Costa\Entity\ValueObject\Uuid;
 
 use function PHPUnit\Framework\assertEquals;

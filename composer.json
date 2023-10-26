@@ -1,8 +1,8 @@
 {
-    "name": "bhcosta90/package-system-v2",
+    "name": "bhcosta90/package-bank-v2",
     "autoload": {
         "psr-4": {
-            "CodePix\\System\\": "src/"
+            "CodePix\\Bank\\": "src/"
         }
     },
     "autoload-dev": {

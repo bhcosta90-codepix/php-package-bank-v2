@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 use BRCas\CA\Exceptions\UseCaseException;
-use CodePix\System\Application\Repository\PixKeyRepositoryInterface;
-use CodePix\System\Application\UseCases\PixKey\CreateUseCase;
-use CodePix\System\Domain\DomainPixKey;
+use CodePix\Bank\Application\Repository\PixKeyRepositoryInterface;
+use CodePix\Bank\Application\UseCases\PixKey\CreateUseCase;
+use CodePix\Bank\Domain\DomainPixKey;
 use Costa\Entity\Exceptions\EntityException;
 
 use function PHPUnit\Framework\assertEquals;

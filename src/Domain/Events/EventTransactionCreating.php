@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace CodePix\System\Domain\Events;
+namespace CodePix\Bank\Domain\Events;
 
-use CodePix\System\Domain\DomainTransaction;
+use CodePix\Bank\Domain\DomainTransaction;
 use Costa\Entity\Contracts\EventInterface;
 
 class EventTransactionCreating implements EventInterface

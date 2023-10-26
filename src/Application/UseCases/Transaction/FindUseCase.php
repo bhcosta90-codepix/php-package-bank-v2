@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace CodePix\System\Application\UseCases\Transaction;
+namespace CodePix\Bank\Application\UseCases\Transaction;
 
 use BRCas\CA\Exceptions\DomainNotFoundException;
-use CodePix\System\Application\Repository\TransactionRepositoryInterface;
-use CodePix\System\Domain\DomainTransaction;
+use CodePix\Bank\Application\Repository\TransactionRepositoryInterface;
+use CodePix\Bank\Domain\DomainTransaction;
 
 class FindUseCase
 {

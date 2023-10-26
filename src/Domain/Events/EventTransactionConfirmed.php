@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace CodePix\System\Domain\Events;
+namespace CodePix\Bank\Domain\Events;
 
 use Costa\Entity\Contracts\EventInterface;
 use Costa\Entity\ValueObject\Uuid;

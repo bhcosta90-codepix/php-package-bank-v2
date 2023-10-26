@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace CodePix\System\Domain;
+namespace CodePix\Bank\Domain;
 
-use CodePix\System\Domain\Enum\EnumPixType;
+use CodePix\Bank\Domain\Enum\EnumPixType;
 use Costa\Entity\Data;
 use Costa\Entity\ValueObject\Uuid;
 

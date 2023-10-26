@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace CodePix\System\Application\Repository;
+namespace CodePix\Bank\Application\Repository;
 
-use CodePix\System\Domain\DomainPixKey;
-use CodePix\System\Domain\Enum\EnumPixType;
+use CodePix\Bank\Domain\DomainPixKey;
+use CodePix\Bank\Domain\Enum\EnumPixType;
 
 interface PixKeyRepositoryInterface
 {

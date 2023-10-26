@@ -5,9 +5,9 @@ declare(strict_types=1);
 use BRCas\CA\Contracts\Event\EventManagerInterface;
 use BRCas\CA\Exceptions\DomainNotFoundException;
 use BRCas\CA\Exceptions\UseCaseException;
-use CodePix\System\Application\Repository\TransactionRepositoryInterface;
-use CodePix\System\Application\UseCases\Transaction\Status\ConfirmedUseCase;
-use CodePix\System\Domain\DomainTransaction;
+use CodePix\Bank\Application\Repository\TransactionRepositoryInterface;
+use CodePix\Bank\Application\UseCases\Transaction\Status\ConfirmedUseCase;
+use CodePix\Bank\Domain\DomainTransaction;
 
 use function Tests\dataDomainTransaction;
 use function Tests\mockTimes;

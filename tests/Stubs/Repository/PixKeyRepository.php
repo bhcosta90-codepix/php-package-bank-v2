@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Stubs\Repository;
 
-use CodePix\System\Application\Repository\PixKeyRepositoryInterface;
-use CodePix\System\Domain\DomainPixKey;
-use CodePix\System\Domain\Enum\EnumPixType;
+use CodePix\Bank\Application\Repository\PixKeyRepositoryInterface;
+use CodePix\Bank\Domain\DomainPixKey;
+use CodePix\Bank\Domain\Enum\EnumPixType;
 
 class PixKeyRepository implements PixKeyRepositoryInterface
 {

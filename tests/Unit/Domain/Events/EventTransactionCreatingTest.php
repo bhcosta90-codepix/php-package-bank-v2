@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use CodePix\System\Domain\DomainTransaction;
-use CodePix\System\Domain\Events\EventTransactionCreating;
+use CodePix\Bank\Domain\DomainTransaction;
+use CodePix\Bank\Domain\Events\EventTransactionCreating;
 
 use function PHPUnit\Framework\assertEquals;
 use function Tests\dataDomainTransaction;

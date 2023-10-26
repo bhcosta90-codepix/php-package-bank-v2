@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 use BRCas\CA\Exceptions\DomainNotFoundException;
-use CodePix\System\Application\Repository\TransactionRepositoryInterface;
-use CodePix\System\Application\UseCases\Transaction\FindUseCase;
-use CodePix\System\Domain\DomainTransaction;
+use CodePix\Bank\Application\Repository\TransactionRepositoryInterface;
+use CodePix\Bank\Application\UseCases\Transaction\FindUseCase;
+use CodePix\Bank\Domain\DomainTransaction;
 
 use function Tests\dataDomainTransaction;
 use function Tests\mockTimes;

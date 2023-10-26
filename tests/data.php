@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use CodePix\System\Domain\DomainPixKey;
-use CodePix\System\Domain\Enum\EnumPixType;
+use CodePix\Bank\Domain\DomainPixKey;
+use CodePix\Bank\Domain\Enum\EnumPixType;
 use Costa\Entity\ValueObject\Uuid;
 use Mockery\MockInterface;
 
