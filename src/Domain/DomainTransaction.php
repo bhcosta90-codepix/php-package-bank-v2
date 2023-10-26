@@ -21,7 +21,6 @@ class DomainTransaction extends Data
     protected ?string $cancelDescription = null;
 
     public function __construct(
-        protected Uuid $bank,
         protected Uuid $reference,
         protected string $description,
         protected float $value,
@@ -42,7 +41,7 @@ class DomainTransaction extends Data
     {
         $this->cancelDescription = $message;
         $this->status = EnumTransactionStatus::ERROR;
-        $this->addEvent(new EventTransactionError($this->bank, $this->id()));
+        $this->addEvent(new EventTransactionError($this->id()));
         return $this;
     }
 
@@ -53,7 +52,7 @@ class DomainTransaction extends Data
     {
         if ($this->status === EnumTransactionStatus::PENDING) {
             $this->status = EnumTransactionStatus::CONFIRMED;
-            $this->addEvent(new EventTransactionConfirmed($this->bank, $this->id()));
+            $this->addEvent(new EventTransactionConfirmed($this->id()));
             return $this;
         }
 
@@ -67,7 +66,7 @@ class DomainTransaction extends Data
     {
         if ($this->status === EnumTransactionStatus::CONFIRMED) {
             $this->status = EnumTransactionStatus::COMPLETED;
-            $this->addEvent(new EventTransactionCompleted($this->bank, $this->id()));
+            $this->addEvent(new EventTransactionCompleted($this->id()));
             return $this;
         }
 

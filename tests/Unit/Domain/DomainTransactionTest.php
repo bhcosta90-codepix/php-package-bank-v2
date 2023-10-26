@@ -18,7 +18,6 @@ beforeEach(fn() => $this->pix = new DomainPixKey(...dataDomainPixKey()));
 describe("DomainTransaction Unit Tests", function () {
     test("creating a new transaction", function () {
         $entity = new DomainTransaction(
-            bank: new Uuid('af4d8146-c829-46b6-8642-da0a0bdc2884'),
             reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
             description: 'testing',
             value: 50,
@@ -27,7 +26,6 @@ describe("DomainTransaction Unit Tests", function () {
         );
 
         assertEquals([
-            'bank' => 'af4d8146-c829-46b6-8642-da0a0bdc2884',
             'reference' => '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
             'description' => 'testing',
             'value' => 50,
@@ -43,7 +41,6 @@ describe("DomainTransaction Unit Tests", function () {
 
     test("making a transaction", function () {
         $entity = DomainTransaction::make([
-            'bank' => 'af4d8146-c829-46b6-8642-da0a0bdc2884',
             'reference' => '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
             'description' => 'testing',
             'value' => 50,
@@ -55,7 +52,6 @@ describe("DomainTransaction Unit Tests", function () {
         ]);
 
         assertEquals([
-            'bank' => 'af4d8146-c829-46b6-8642-da0a0bdc2884',
             'reference' => '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
             'description' => 'testing',
             'value' => 50,
@@ -69,7 +65,6 @@ describe("DomainTransaction Unit Tests", function () {
         ], $entity->toArray());
 
         $entity = DomainTransaction::make([
-            'bank' => 'af4d8146-c829-46b6-8642-da0a0bdc2884',
             'reference' => '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
             'description' => 'testing',
             'value' => 50,
@@ -81,7 +76,6 @@ describe("DomainTransaction Unit Tests", function () {
         ]);
 
         assertEquals([
-            'bank' => 'af4d8146-c829-46b6-8642-da0a0bdc2884',
             'reference' => '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
             'description' => 'testing',
             'value' => 50,
@@ -95,7 +89,6 @@ describe("DomainTransaction Unit Tests", function () {
         ], $entity->toArray());
 
         $entity = DomainTransaction::make([
-            'bank' => 'af4d8146-c829-46b6-8642-da0a0bdc2884',
             'reference' => '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
             'description' => 'testing',
             'value' => 50,
@@ -112,7 +105,6 @@ describe("DomainTransaction Unit Tests", function () {
 
     test("setting a error at transaction", function () {
         $entity = new DomainTransaction(
-            bank: new Uuid('af4d8146-c829-46b6-8642-da0a0bdc2884'),
             reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
             description: 'testing',
             value: 50,
@@ -128,7 +120,6 @@ describe("DomainTransaction Unit Tests", function () {
     describe("setting confirmation a transaction", function () {
         test("success", function () {
             $entity = new DomainTransaction(
-                bank: new Uuid('af4d8146-c829-46b6-8642-da0a0bdc2884'),
                 reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
                 description: 'testing',
                 value: 50,
@@ -141,7 +132,6 @@ describe("DomainTransaction Unit Tests", function () {
 
         test("error", function () {
             $entity = new DomainTransaction(
-                bank: new Uuid('af4d8146-c829-46b6-8642-da0a0bdc2884'),
                 reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
                 description: 'testing',
                 value: 50,
@@ -159,7 +149,6 @@ describe("DomainTransaction Unit Tests", function () {
     describe("setting completed a transaction", function () {
         test("success", function () {
             $entity = new DomainTransaction(
-                bank: new Uuid('af4d8146-c829-46b6-8642-da0a0bdc2884'),
                 reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
                 description: 'testing',
                 value: 50,
@@ -172,7 +161,6 @@ describe("DomainTransaction Unit Tests", function () {
 
         test("error", function () {
             $entity = new DomainTransaction(
-                bank: new Uuid('af4d8146-c829-46b6-8642-da0a0bdc2884'),
                 reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
                 description: 'testing',
                 value: 50,
@@ -189,7 +177,6 @@ describe("DomainTransaction Unit Tests", function () {
         describe("at constructor", function () {
             test("validate property value", function () {
                 expect(fn() => new DomainTransaction(
-                    bank: new Uuid('af4d8146-c829-46b6-8642-da0a0bdc2884'),
                     reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
                     description: 'testing',
                     value: 0,
@@ -200,7 +187,6 @@ describe("DomainTransaction Unit Tests", function () {
 
             test("validate property description", function () {
                 expect(fn() => new DomainTransaction(
-                    bank: new Uuid('af4d8146-c829-46b6-8642-da0a0bdc2884'),
                     reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
                     description: 'te',
                     value: 0.01,
@@ -213,7 +199,6 @@ describe("DomainTransaction Unit Tests", function () {
         describe("at make", function () {
             test("validate property value", function () {
                 expect(fn() => DomainTransaction::make(
-                    bank: 'af4d8146-c829-46b6-8642-da0a0bdc2884',
                     reference: '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
                     description: 'testing',
                     value: 0,
@@ -224,7 +209,6 @@ describe("DomainTransaction Unit Tests", function () {
 
             test("validate property description", function () {
                 expect(fn() => DomainTransaction::make(
-                    bank: 'af4d8146-c829-46b6-8642-da0a0bdc2884',
                     reference: '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
                     description: 'te',
                     value: 0.01,

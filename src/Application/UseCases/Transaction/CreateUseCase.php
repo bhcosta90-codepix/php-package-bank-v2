@@ -39,7 +39,6 @@ class CreateUseCase
         $kind = EnumPixType::from($kind);
 
         $response = new DomainTransaction(
-            bank: new Uuid($bank),
             reference: new Uuid($id),
             description: $description,
             value: $value,

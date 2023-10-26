@@ -9,9 +9,8 @@ use function PHPUnit\Framework\assertEquals;
 
 describe("EventTransactionError Unit Test", function () {
     test("payload", function () {
-        $event = new EventTransactionError($id = Uuid::make(), "test");
+        $event = new EventTransactionError("test");
         assertEquals([
-            'bank' => $id,
             'id' => 'test',
         ], $event->payload());
     });
