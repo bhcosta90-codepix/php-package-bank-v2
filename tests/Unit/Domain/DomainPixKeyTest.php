@@ -2,20 +2,24 @@
 
 declare(strict_types=1);
 
+use CodePix\Bank\Domain\DomainAccount;
 use CodePix\Bank\Domain\DomainPixKey;
 use CodePix\Bank\Domain\Enum\EnumPixType;
 
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertNotNull;
+use function Tests\dataDomainAccount;
 
 describe("DomainPixKey Unit Tests", function () {
     test("creating a new transaction", function () {
         $entity = new DomainPixKey(
+            account: $account = new DomainAccount(...dataDomainAccount()),
             kind: EnumPixType::EMAIL,
             key: 'test@test.com',
         );
 
         assertEquals([
+            'account' => $account->toArray(),
             'kind' => 'email',
             'key' => 'test@test.com',
             'id' => $entity->id(),
@@ -24,6 +28,7 @@ describe("DomainPixKey Unit Tests", function () {
         ], $entity->toArray());
 
         $entity = new DomainPixKey(
+            account: new DomainAccount(...dataDomainAccount()),
             kind: EnumPixType::ID,
             key: '4393e8bc-73f7-11ee-b962-0242ac120002',
         );
@@ -31,6 +36,7 @@ describe("DomainPixKey Unit Tests", function () {
         assertEquals('4393e8bc-73f7-11ee-b962-0242ac120002', $entity->key);
 
         $entity = DomainPixKey::make(
+            account: new DomainAccount(...dataDomainAccount()),
             kind: EnumPixType::ID,
             key: '4393e8bc-73f7-11ee-b962-0242ac120002',
         );
@@ -40,6 +46,7 @@ describe("DomainPixKey Unit Tests", function () {
 
     test("making a transaction", function () {
         $entity = DomainPixKey::make([
+            "account" => $account = new DomainAccount(...dataDomainAccount()),
             "kind" => EnumPixType::EMAIL,
             "key" => 'test@test.com',
             'id' => '4393e8bc-73f7-11ee-b962-0242ac120002',
@@ -48,6 +55,7 @@ describe("DomainPixKey Unit Tests", function () {
         ]);
 
         assertEquals([
+            "account" => $account->toArray(),
             "kind" => "email",
             "key" => 'test@test.com',
             'id' => '4393e8bc-73f7-11ee-b962-0242ac120002',
@@ -56,6 +64,7 @@ describe("DomainPixKey Unit Tests", function () {
         ], $entity->toArray());
 
         $entity = DomainPixKey::make([
+            "account" => $account = new DomainAccount(...dataDomainAccount()),
             "kind" => EnumPixType::EMAIL,
             "key" => 'test@test.com',
             'id' => '4393e8bc-73f7-11ee-b962-0242ac120002',
@@ -64,6 +73,7 @@ describe("DomainPixKey Unit Tests", function () {
         ]);
 
         assertEquals([
+            "account" => $account->toArray(),
             "kind" => "email",
             "key" => 'test@test.com',
             'id' => '4393e8bc-73f7-11ee-b962-0242ac120002',

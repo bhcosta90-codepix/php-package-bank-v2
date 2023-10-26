@@ -17,7 +17,6 @@ use Costa\Entity\ValueObject\Uuid;
 class CreateUseCase
 {
     public function __construct(
-        protected PixKeyRepositoryInterface $pixKeyRepository,
         protected TransactionRepositoryInterface $transactionRepository,
         protected EventManagerInterface $eventManager,
     ) {
@@ -29,8 +28,7 @@ class CreateUseCase
      * @throws NotificationException
      */
     public function exec(
-        string $bank,
-        string $id,
+        string $account,
         string $description,
         float $value,
         string $kind,
@@ -39,18 +37,13 @@ class CreateUseCase
         $kind = EnumPixType::from($kind);
 
         $response = new DomainTransaction(
-            reference: new Uuid($id),
+            reference: null,
             description: $description,
             value: $value,
             kind: $kind,
             key: $key,
         );
-
-        if (!$this->pixKeyRepository->find($kind, $key)) {
-            $response->error("Pix not found");
-        } else {
-            $response->pending();
-        }
+        $response->pending();
 
         if ($response = $this->transactionRepository->create($response)) {
             $this->eventManager->dispatch($response->getEvents());

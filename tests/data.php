@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use CodePix\Bank\Domain\DomainAccount;
 use CodePix\Bank\Domain\DomainPixKey;
 use CodePix\Bank\Domain\Enum\EnumPixType;
 use Costa\Entity\ValueObject\Uuid;
@@ -32,8 +33,16 @@ function dataDomainTransaction(): array
 function dataDomainPixKey(): array
 {
     return [
+        'account' => new DomainAccount(...dataDomainAccount()),
         "kind" => EnumPixType::EMAIL,
         "key" => 'test@test.com',
+    ];
+}
+
+function dataDomainAccount(): array
+{
+    return [
+        'name' => 'testing',
     ];
 }
 

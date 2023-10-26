@@ -16,11 +16,6 @@ use function Tests\mockTimes;
 
 describe("CreateUseCase Unit Test", function () {
     test("create a new entity", function () {
-        $mockDomainPixKey = mock(DomainPixKey::class, dataDomainPixKey());
-
-        $pixKeyRepository = mock(PixKeyRepositoryInterface::class);
-        mockTimes($pixKeyRepository, "find", $mockDomainPixKey);
-
         $mockDomainTransaction = mock(DomainTransaction::class, dataDomainTransaction());
         mockTimes($mockDomainTransaction, 'getEvents', []);
 
@@ -31,14 +26,12 @@ describe("CreateUseCase Unit Test", function () {
         mockTimes($mockEventManager, 'dispatch');
 
         $useCase = new CreateUseCase(
-            pixKeyRepository: $pixKeyRepository,
             transactionRepository: $transactionRepository,
             eventManager: $mockEventManager
         );
 
         $useCase->exec(
             "af4d8146-c829-46b6-8642-da0a0bdc2884",
-            "9a439706-13ff-4a33-99ab-0bb80bb6b567",
             "testing",
             50,
             "email",
@@ -50,9 +43,6 @@ describe("CreateUseCase Unit Test", function () {
         $mockDomainTransaction = mock(DomainTransaction::class, dataDomainTransaction());
         mockTimes($mockDomainTransaction, 'getEvents', []);
 
-        $pixKeyRepository = mock(PixKeyRepositoryInterface::class);
-        mockTimes($pixKeyRepository, "find");
-
         $transactionRepository = mock(TransactionRepositoryInterface::class);
         mockTimes($transactionRepository, "create", $mockDomainTransaction);
 
@@ -60,14 +50,12 @@ describe("CreateUseCase Unit Test", function () {
         mockTimes($mockEventManager, 'dispatch');
 
         $useCase = new CreateUseCase(
-            pixKeyRepository: $pixKeyRepository,
             transactionRepository: $transactionRepository,
             eventManager: $mockEventManager,
         );
 
         $useCase->exec(
             "af4d8146-c829-46b6-8642-da0a0bdc2884",
-            "9a439706-13ff-4a33-99ab-0bb80bb6b567",
             "testing",
             50,
             "email",
@@ -76,18 +64,12 @@ describe("CreateUseCase Unit Test", function () {
     });
 
     test("exception when unable to register the transaction", function () {
-        $mockDomainPixKey = mock(DomainPixKey::class, dataDomainPixKey());
-
-        $pixKeyRepository = mock(PixKeyRepositoryInterface::class);
-        mockTimes($pixKeyRepository, "find", $mockDomainPixKey);
-
         $transactionRepository = mock(TransactionRepositoryInterface::class);
         mockTimes($transactionRepository, "create");
 
         $mockEventManager = mock(EventManagerInterface::class);
 
         $useCase = new CreateUseCase(
-            pixKeyRepository: $pixKeyRepository,
             transactionRepository: $transactionRepository,
             eventManager: $mockEventManager,
         );
@@ -95,7 +77,6 @@ describe("CreateUseCase Unit Test", function () {
         expect(
             fn() => $useCase->exec(
                 "af4d8146-c829-46b6-8642-da0a0bdc2884",
-                "9a439706-13ff-4a33-99ab-0bb80bb6b567",
                 "testing",
                 50,
                 "email",

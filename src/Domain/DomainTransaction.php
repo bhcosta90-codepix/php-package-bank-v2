@@ -21,7 +21,7 @@ class DomainTransaction extends Data
     protected ?string $cancelDescription = null;
 
     public function __construct(
-        protected Uuid $reference,
+        protected ?Uuid $reference,
         protected string $description,
         protected float $value,
         protected EnumPixType $kind,

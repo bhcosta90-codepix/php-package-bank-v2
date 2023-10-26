@@ -10,7 +10,7 @@ use CodePix\Bank\Domain\DomainTransaction;
 class TransactionRepository implements TransactionRepositoryInterface
 {
     /**
-     * @var DomainTransaction $data
+     * @var DomainTransaction[]
      */
     private array $data = [];
 

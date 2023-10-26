@@ -11,7 +11,7 @@ use CodePix\Bank\Domain\Enum\EnumPixType;
 class PixKeyRepository implements PixKeyRepositoryInterface
 {
     /**
-     * @var DomainPixKey $data
+     * @var DomainPixKey[]
      */
     private array $data = [];
 
