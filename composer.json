@@ -1,0 +1,49 @@
+{
+    "name": "bhcosta90/package-system-v2",
+    "autoload": {
+        "psr-4": {
+            "CodePix\\System\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        },
+        "files": [
+            "tests/data.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Bruno Costa",
+            "email": "bhcosta90@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^8.1",
+        "bhcosta90/clean-architecture": "dev-master",
+        "bhcosta90/entity": "dev-master"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/bhcosta90/php-domain-package"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/bhcosta90/php-entity-package"
+        }
+    ],
+    "require-dev": {
+        "pestphp/pest": "^2.24",
+        "captainhook/captainhook": "^5.18",
+        "mockery/mockery": "^1.6",
+        "symfony/var-dumper": "^6.3"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}

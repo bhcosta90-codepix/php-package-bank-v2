@@ -1,0 +1,33 @@
+<?php
+
+declare(strict_types=1);
+
+use BRCas\CA\Exceptions\DomainNotFoundException;
+use BRCas\CA\Exceptions\UseCaseException;
+use CodePix\System\Application\Repository\TransactionRepositoryInterface;
+use CodePix\System\Application\UseCases\Transaction\Status\CompletedUseCase;
+use CodePix\System\Application\UseCases\Transaction\Status\ConfirmedUseCase;
+use CodePix\System\Domain\DomainTransaction;
+
+use CodePix\System\Domain\Enum\EnumTransactionStatus;
+use Tests\Stubs\EventManager;
+use Tests\Stubs\Repository\TransactionRepository;
+
+use function PHPUnit\Framework\assertEquals;
+use function Tests\dataDomainTransaction;
+use function Tests\mockTimes;
+
+
+describe("ConfirmedUseCase Unit Test", function () {
+    test("save a transaction", function () {
+        $transaction = new DomainTransaction(...dataDomainTransaction());
+        $transaction->pending();
+
+        $transactionRepository = new TransactionRepository();
+        $transactionRepository->create($transaction);
+
+        $useCase = new ConfirmedUseCase(transactionRepository: $transactionRepository, eventManager: new EventManager());
+        $response = $useCase->exec($transaction->id());
+        assertEquals(EnumTransactionStatus::CONFIRMED, $response->status);
+    });
+});
