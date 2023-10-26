@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "bhcosta90/clean-architecture",
-            "version": "1.0.25",
+            "version": "1.0.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bhcosta90/php-domain-package.git",
-                "reference": "3802eb239260b6ee202bb1a998bba4cc4a16654e"
+                "reference": "e34d6bd069958e61b638027f9ecdf7269ebe9919"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bhcosta90/php-domain-package/zipball/3802eb239260b6ee202bb1a998bba4cc4a16654e",
-                "reference": "3802eb239260b6ee202bb1a998bba4cc4a16654e",
+                "url": "https://api.github.com/repos/bhcosta90/php-domain-package/zipball/e34d6bd069958e61b638027f9ecdf7269ebe9919",
+                "reference": "e34d6bd069958e61b638027f9ecdf7269ebe9919",
                 "shasum": ""
             },
             "require": {
@@ -58,10 +58,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/bhcosta90/php-domain-package/tree/1.0.25",
+                "source": "https://github.com/bhcosta90/php-domain-package/tree/1.0.27",
                 "issues": "https://github.com/bhcosta90/php-domain-package/issues"
             },
-            "time": "2023-10-26T21:56:53+00:00"
+            "time": "2023-10-26T22:42:44+00:00"
         },
         {
             "name": "bhcosta90/entity",
