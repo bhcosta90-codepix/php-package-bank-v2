@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use CodePix\Bank\Domain\DomainAccount;
-use CodePix\Bank\Domain\DomainPixKey;
 use CodePix\Bank\Domain\DomainTransaction;
 use CodePix\Bank\Domain\Enum\EnumPixType;
 use CodePix\Bank\Domain\Enum\EnumTransactionStatus;
@@ -12,9 +11,11 @@ use Costa\Entity\Exceptions\NotificationException;
 use Costa\Entity\ValueObject\Uuid;
 
 use function PHPUnit\Framework\assertEquals;
-use function Tests\mockTimes;
 
 beforeEach(function () {
+    $this->reference = mock(Uuid::class);
+    $this->reference->shouldReceive('__toString')->andReturn('22e7e7e3-2f38-4c06-b9e7-12335b45a0db');
+
     $this->account = mock(DomainAccount::class);
     $this->account->shouldReceive('toArray')->andReturn($this->accountResult = []);
 });
@@ -23,7 +24,7 @@ describe("DomainTransaction Unit Tests", function () {
     test("creating a new transaction", function () {
         $entity = new DomainTransaction(
             account: $this->account,
-            reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
+            reference: $this->reference,
             description: 'testing',
             value: 50,
             kind: EnumPixType::EMAIL,
@@ -48,7 +49,7 @@ describe("DomainTransaction Unit Tests", function () {
     test("making a transaction", function () {
         $entity = DomainTransaction::make([
             "account" => $this->account,
-            'reference' => '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
+            'reference' => (string)$this->reference,
             'description' => 'testing',
             'value' => 50,
             "kind" => EnumPixType::EMAIL,
@@ -74,7 +75,7 @@ describe("DomainTransaction Unit Tests", function () {
 
         $entity = DomainTransaction::make([
             "account" => $this->account,
-            'reference' => '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
+            'reference' => (string)$this->reference,
             'description' => 'testing',
             'value' => 50,
             "kind" => EnumPixType::EMAIL,
@@ -86,7 +87,7 @@ describe("DomainTransaction Unit Tests", function () {
 
         assertEquals([
             'account' => $this->accountResult,
-            'reference' => '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
+            'reference' => (string)$this->reference,
             'description' => 'testing',
             'value' => 50,
             "kind" => "email",
@@ -99,9 +100,8 @@ describe("DomainTransaction Unit Tests", function () {
         ], $entity->toArray());
 
         $entity = DomainTransaction::make([
-            'account' => $this->accountResult,
-            "account" => $this->account,
-            'reference' => '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
+            'account' => $this->account,
+            'reference' => (string)$this->reference,
             'description' => 'testing',
             'value' => 50,
             "kind" => EnumPixType::EMAIL,
@@ -118,7 +118,7 @@ describe("DomainTransaction Unit Tests", function () {
     test("setting a error at transaction", function () {
         $entity = new DomainTransaction(
             account: $this->account,
-            reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
+            reference: $this->reference,
             description: 'testing',
             value: 50,
             kind: EnumPixType::EMAIL,
@@ -134,7 +134,7 @@ describe("DomainTransaction Unit Tests", function () {
         test("success", function () {
             $entity = new DomainTransaction(
                 account: $this->account,
-                reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
+                reference: $this->reference,
                 description: 'testing',
                 value: 50,
                 kind: EnumPixType::EMAIL,
@@ -147,7 +147,7 @@ describe("DomainTransaction Unit Tests", function () {
         test("error", function () {
             $entity = new DomainTransaction(
                 account: $this->account,
-                reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
+                reference: $this->reference,
                 description: 'testing',
                 value: 50,
                 kind: EnumPixType::EMAIL,
@@ -165,7 +165,7 @@ describe("DomainTransaction Unit Tests", function () {
         test("success", function () {
             $entity = new DomainTransaction(
                 account: $this->account,
-                reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
+                reference: $this->reference,
                 description: 'testing',
                 value: 50,
                 kind: EnumPixType::EMAIL,
@@ -178,7 +178,7 @@ describe("DomainTransaction Unit Tests", function () {
         test("error", function () {
             $entity = new DomainTransaction(
                 account: $this->account,
-                reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
+                reference: $this->reference,
                 description: 'testing',
                 value: 50,
                 kind: EnumPixType::EMAIL,
@@ -195,7 +195,7 @@ describe("DomainTransaction Unit Tests", function () {
             test("validate property value", function () {
                 expect(fn() => new DomainTransaction(
                     account: $this->account,
-                    reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
+                    reference: $this->reference,
                     description: 'testing',
                     value: 0,
                     kind: EnumPixType::EMAIL,
@@ -206,7 +206,7 @@ describe("DomainTransaction Unit Tests", function () {
             test("validate property description", function () {
                 expect(fn() => new DomainTransaction(
                     account: $this->account,
-                    reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
+                    reference: $this->reference,
                     description: 'te',
                     value: 0.01,
                     kind: EnumPixType::EMAIL,

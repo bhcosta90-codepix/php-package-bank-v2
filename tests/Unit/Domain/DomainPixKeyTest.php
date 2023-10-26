@@ -7,7 +7,6 @@ use CodePix\Bank\Domain\DomainPixKey;
 use CodePix\Bank\Domain\Enum\EnumPixType;
 
 use function PHPUnit\Framework\assertEquals;
-use function PHPUnit\Framework\assertNotNull;
 use function Tests\arrayDomainAccount;
 use function Tests\dataDomainAccount;
 

@@ -4,12 +4,9 @@ declare(strict_types=1);
 
 use CodePix\Bank\Application\UseCases\Transaction\DebitUseCase;
 use CodePix\Bank\Domain\DomainAccount;
-use CodePix\Bank\Domain\DomainPixKey;
-use CodePix\Bank\Domain\Enum\EnumPixType;
 use CodePix\Bank\Domain\Enum\EnumTransactionStatus;
 use Tests\Stubs\EventManager;
 use Tests\Stubs\Repository\AccountRepository;
-use Tests\Stubs\Repository\PixKeyRepository;
 use Tests\Stubs\Repository\TransactionRepository;
 
 use function PHPUnit\Framework\assertEquals;

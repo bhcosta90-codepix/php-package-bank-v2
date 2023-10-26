@@ -6,14 +6,11 @@ use BRCas\CA\Contracts\Event\EventManagerInterface;
 use BRCas\CA\Exceptions\DomainNotFoundException;
 use BRCas\CA\Exceptions\UseCaseException;
 use CodePix\Bank\Application\Repository\AccountRepositoryInterface;
-use CodePix\Bank\Application\Repository\PixKeyRepositoryInterface;
 use CodePix\Bank\Application\Repository\TransactionRepositoryInterface;
 use CodePix\Bank\Application\UseCases\Transaction\DebitUseCase;
 use CodePix\Bank\Domain\DomainAccount;
-use CodePix\Bank\Domain\DomainPixKey;
 use CodePix\Bank\Domain\DomainTransaction;
 
-use function Tests\arrayDomainAccount;
 use function Tests\dataDomainAccount;
 use function Tests\dataDomainPixKey;
 use function Tests\dataDomainTransaction;

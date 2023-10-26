@@ -6,7 +6,6 @@ namespace CodePix\Bank\Domain;
 
 use CodePix\Bank\Domain\Enum\EnumPixType;
 use Costa\Entity\Data;
-use Costa\Entity\ValueObject\Uuid;
 
 class DomainPixKey extends Data
 {

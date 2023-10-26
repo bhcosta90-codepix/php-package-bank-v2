@@ -12,7 +12,7 @@ use Tests\Stubs\Repository\PixKeyRepository;
 use function PHPUnit\Framework\assertInstanceOf;
 use function PHPUnit\Framework\assertNotNull;
 
-beforeEach(function(){
+beforeEach(function () {
     $this->account = new DomainAccount(name: 'testing');
 
     $this->accountRepository = new AccountRepository();

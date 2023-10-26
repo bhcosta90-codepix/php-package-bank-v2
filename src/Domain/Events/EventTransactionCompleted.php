@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace CodePix\Bank\Domain\Events;
 
 use Costa\Entity\Contracts\EventInterface;
-use Costa\Entity\ValueObject\Uuid;
 
 class EventTransactionCompleted implements EventInterface
 {

@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use CodePix\Bank\Domain\Events\EventTransactionCompleted;
-use Costa\Entity\ValueObject\Uuid;
 
 use function PHPUnit\Framework\assertEquals;
 
