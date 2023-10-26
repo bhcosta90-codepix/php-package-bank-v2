@@ -15,6 +15,10 @@ use Tests\Stubs\Repository\TransactionRepository;
 use function Tests\arrayDomainPixKey;
 use function Tests\mockTimes;
 
+beforeEach(function(){
+    $this->mockDomainPix = new DomainPixKey(...arrayDomainPixKey());
+});
+
 describe("CreditUseCase Unit Test", function () {
     test("create a new entity", function () {
         $mockDomainTransaction = mock(DomainTransaction::class);
@@ -24,7 +28,7 @@ describe("CreditUseCase Unit Test", function () {
         mockTimes($transactionRepository, 'create', $mockDomainTransaction);
 
         $pixKeyRepository = mock(PixKeyRepository::class);
-        mockTimes($pixKeyRepository, 'find', new DomainPixKey(...arrayDomainPixKey()));
+        mockTimes($pixKeyRepository, 'find', $this->mockDomainPix);
 
         $eventManager = mock(EventManagerInterface::class);
         mockTimes($eventManager, 'dispatch');
@@ -70,7 +74,7 @@ describe("CreditUseCase Unit Test", function () {
         mockTimes($transactionRepository, 'create');
 
         $pixKeyRepository = mock(PixKeyRepository::class);
-        mockTimes($pixKeyRepository, 'find', new DomainPixKey(...arrayDomainPixKey()));
+        mockTimes($pixKeyRepository, 'find', $this->mockDomainPix);
 
         $eventManager = mock(EventManagerInterface::class);
 
