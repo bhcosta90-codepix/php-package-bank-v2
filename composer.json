@@ -22,8 +22,7 @@
     "minimum-stability": "dev",
     "require": {
         "php": "^8.1",
-        "bhcosta90/clean-architecture": "dev-master",
-        "bhcosta90/entity": "dev-master"
+        "bhcosta90/clean-architecture": "^1.0"
     },
     "repositories": [
         {

@@ -4,24 +4,24 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "75c74a76f3176621f6cb8cbb23f52825",
+    "content-hash": "2b610b795836689f657ce91ee8b9de5d",
     "packages": [
         {
             "name": "bhcosta90/clean-architecture",
-            "version": "dev-master",
+            "version": "1.0.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bhcosta90/php-domain-package.git",
-                "reference": "a99a0a09988d499e80a09902308ff78c5ece477e"
+                "reference": "3802eb239260b6ee202bb1a998bba4cc4a16654e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bhcosta90/php-domain-package/zipball/a99a0a09988d499e80a09902308ff78c5ece477e",
-                "reference": "a99a0a09988d499e80a09902308ff78c5ece477e",
+                "url": "https://api.github.com/repos/bhcosta90/php-domain-package/zipball/3802eb239260b6ee202bb1a998bba4cc4a16654e",
+                "reference": "3802eb239260b6ee202bb1a998bba4cc4a16654e",
                 "shasum": ""
             },
             "require": {
-                "bhcosta90/entity": "dev-master"
+                "bhcosta90/entity": "^1.0"
             },
             "require-dev": {
                 "captainhook/captainhook": "^5.18",
@@ -29,7 +29,6 @@
                 "pestphp/pest": "^2.23",
                 "symfony/var-dumper": "^6.3"
             },
-            "default-branch": true,
             "type": "project",
             "autoload": {
                 "psr-4": {
@@ -59,14 +58,14 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/bhcosta90/php-domain-package/tree/master",
+                "source": "https://github.com/bhcosta90/php-domain-package/tree/1.0.25",
                 "issues": "https://github.com/bhcosta90/php-domain-package/issues"
             },
-            "time": "2023-10-26T17:20:49+00:00"
+            "time": "2023-10-26T21:56:53+00:00"
         },
         {
             "name": "bhcosta90/entity",
-            "version": "dev-master",
+            "version": "1.0.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bhcosta90/php-entity-package.git",
@@ -89,7 +88,6 @@
                 "pestphp/pest": "^2.19",
                 "symfony/var-dumper": "^6.3"
             },
-            "default-branch": true,
             "type": "project",
             "autoload": {
                 "psr-4": {
@@ -116,7 +114,7 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/bhcosta90/php-entity-package/tree/master",
+                "source": "https://github.com/bhcosta90/php-entity-package/tree/1.0.25",
                 "issues": "https://github.com/bhcosta90/php-entity-package/issues"
             },
             "time": "2023-10-26T17:19:45+00:00"
@@ -5080,10 +5078,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "bhcosta90/clean-architecture": 20,
-        "bhcosta90/entity": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
