@@ -85,6 +85,39 @@ describe("CreditUseCase Unit Test", function () {
         ))->toThrow(new DomainNotFoundException(DomainAccount::class, "test@test.com and kind: email"));
     });
 
+    test("exception commit to database transaction", function(){
+
+        $transactionRepository = mock(TransactionRepository::class);
+        mockTimes($transactionRepository, 'create', mock(DomainTransaction::class));
+
+        $pixKeyRepository = mock(PixKeyRepository::class);
+        mockTimes($pixKeyRepository, 'find', $this->mockDomainPix);
+
+        $mockDomainAccount = mock(DomainAccount::class);
+
+        $accountRepository = mock(AccountRepository::class);
+        mockTimes($accountRepository, 'save', $mockDomainAccount);
+
+        $databaseTransaction = mock(DatabaseTransactionInterface::class);
+        mockTimes($databaseTransaction, 'rollback');
+        $databaseTransaction->shouldReceive('commit')->andThrow(new Exception());
+
+        $useCase = new CreditUseCase(
+            transactionRepository: $transactionRepository,
+            pixKeyRepository: $pixKeyRepository,
+            accountRepository: $accountRepository,
+            eventManager: mock(EventManagerInterface::class),
+            databaseTransaction: $databaseTransaction
+        );
+
+        expect(fn() => $useCase->exec(
+            description: 'testing',
+            value: 50,
+            kind: 'email',
+            key: 'test@test.com'
+        ))->toThrow(new Exception());
+    });
+
     test("exception when unable to register the transaction", function () {
         $transactionRepository = mock(TransactionRepository::class);
         mockTimes($transactionRepository, 'create');
@@ -95,7 +128,6 @@ describe("CreditUseCase Unit Test", function () {
         $eventManager = mock(EventManagerInterface::class);
 
         $databaseTransaction = mock(DatabaseTransactionInterface::class);
-        mockTimes($databaseTransaction, "rollback");
 
         $useCase = new CreditUseCase(
             transactionRepository: $transactionRepository,

@@ -36,6 +36,7 @@ class CreditUseCase
      * @throws NotificationException
      * @throws DomainNotFoundException
      * @throws EntityException
+     * @throws Throwable
      */
     public function exec(
         string $description,
@@ -67,27 +68,13 @@ class CreditUseCase
                 $this->eventManager->dispatch($response->getEvents());
                 return $response;
             }
-
-            throw new UseCaseException(
-                "We were unable to register this transaction in our database"
-            );
-
         } catch(Throwable $e){
             $this->databaseTransaction->rollback();
             throw $e;
         }
 
-        /*return $this->databaseTransaction->transaction(function () use ($response, $domainPix) {
-            if (($response = $this->transactionRepository->create($response)) && $this->accountRepository->save(
-                    $domainPix->account
-                )) {
-                $this->eventManager->dispatch($response->getEvents());
-                return $response;
-            }
-
-            return null;
-        }) ?: throw new UseCaseException(
+        throw new UseCaseException(
             "We were unable to register this transaction in our database"
-        );*/
+        );
     }
 }
