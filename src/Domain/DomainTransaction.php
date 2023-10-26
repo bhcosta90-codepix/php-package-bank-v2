@@ -36,7 +36,9 @@ class DomainTransaction extends Data
     public function pending(): self
     {
         $this->status = EnumTransactionStatus::PENDING;
-        $this->addEvent(new EventTransactionCreating($this));
+        if ($this->type == EnumTransactionType::DEBIT) {
+            $this->addEvent(new EventTransactionCreating($this));
+        }
         return $this;
     }
 
