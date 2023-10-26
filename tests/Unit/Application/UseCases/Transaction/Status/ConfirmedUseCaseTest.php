@@ -8,25 +8,28 @@ use BRCas\CA\Exceptions\UseCaseException;
 use CodePix\Bank\Application\Repository\AccountRepositoryInterface;
 use CodePix\Bank\Application\Repository\TransactionRepositoryInterface;
 use CodePix\Bank\Application\UseCases\Transaction\Status\ConfirmedUseCase;
+use CodePix\Bank\Domain\DomainAccount;
 use CodePix\Bank\Domain\DomainTransaction;
 
+use function Tests\arrayDomainTransaction;
 use function Tests\mockTimes;
 
 
+beforeEach(function(){
+    $this->mockDomainTransaction = new DomainTransaction(...arrayDomainTransaction());
+});
+
 describe("ConfirmedUseCase Unit Test", function () {
     test("save a transaction", function () {
-        $mockDomainTransaction = mock(DomainTransaction::class);
-        mockTimes($mockDomainTransaction, 'confirmed');
-        mockTimes($mockDomainTransaction, 'getEvents');
-
         $transactionRepository = mock(TransactionRepositoryInterface::class);
-        mockTimes($transactionRepository, 'find', $mockDomainTransaction);
-        mockTimes($transactionRepository, 'save', $mockDomainTransaction);
+        mockTimes($transactionRepository, 'find', $this->mockDomainTransaction);
+        mockTimes($transactionRepository, 'save', $this->mockDomainTransaction);
 
         $mockEventManager = mock(EventManagerInterface::class);
         mockTimes($mockEventManager, "dispatch");
 
         $accountRepository = mock(AccountRepositoryInterface::class);
+        mockTimes($accountRepository, 'save', $this->mockDomainTransaction->account);
 
         $useCase = new ConfirmedUseCase(
             transactionRepository: $transactionRepository,
@@ -56,23 +59,25 @@ describe("ConfirmedUseCase Unit Test", function () {
 
     test("exception when save a transaction", function () {
         $mockDomainTransaction = mock(DomainTransaction::class);
-        mockTimes($mockDomainTransaction, 'confirmed');
-        mockTimes($mockDomainTransaction, 'getEvents', []);
 
         $transactionRepository = mock(TransactionRepositoryInterface::class);
-        mockTimes($transactionRepository, 'find', $mockDomainTransaction);
+        mockTimes($transactionRepository, 'find', $this->mockDomainTransaction);
         mockTimes($transactionRepository, 'save');
 
         $mockEventManager = mock(EventManagerInterface::class);
         mockTimes($mockEventManager, "dispatch");
 
+        $mockAccount = mock(DomainAccount::class);
+
         $accountRepository = mock(AccountRepositoryInterface::class);
+        mockTimes($accountRepository, 'save', $mockAccount);
 
         $useCase = new ConfirmedUseCase(
             transactionRepository: $transactionRepository,
             accountRepository: $accountRepository,
             eventManager: $mockEventManager,
         );
+
         expect(fn() => $useCase->exec('7b9ad99b-7c44-461b-a682-b2e87e9c3c60'))->toThrow(
             new UseCaseException("An error occurred while saving this transaction")
         );

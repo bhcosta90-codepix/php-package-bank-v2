@@ -35,6 +35,7 @@ class ConfirmedUseCase
         );
 
         $response->confirmed();
+        $this->accountRepository->save($response->account);
         $this->eventManager->dispatch($response->getEvents());
 
         return $this->transactionRepository->save($response) ?: throw new UseCaseException(

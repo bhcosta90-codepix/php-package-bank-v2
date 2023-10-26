@@ -35,10 +35,8 @@ describe("CreditUseCase Unit Test", function () {
         $eventManager = mock(EventManagerInterface::class);
         mockTimes($eventManager, 'dispatch');
 
-        $mockDomainAccount = mock(DomainAccount::class);
-
         $accountRepository = mock(AccountRepository::class);
-        mockTimes($accountRepository, 'save', $mockDomainAccount);
+        mockTimes($accountRepository, 'save', $this->mockDomainPix->account);
 
         $databaseTransaction = mock(DatabaseTransactionInterface::class);
         mockTimes($databaseTransaction, 'commit');
