@@ -19,6 +19,7 @@ beforeEach(function () {
 
     $this->account = mock(DomainAccount::class);
     $this->account->shouldReceive('toArray')->andReturn($this->accountResult = []);
+    $this->account->shouldReceive('debit');
 });
 
 describe("DomainTransaction Unit Tests", function () {

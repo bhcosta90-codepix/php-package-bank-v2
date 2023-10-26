@@ -8,6 +8,8 @@ use Costa\Entity\Data;
 
 class DomainAccount extends Data
 {
+    protected float $balance = 0;
+
     public function __construct(
         protected string $name,
     ) {
@@ -19,5 +21,17 @@ class DomainAccount extends Data
         return [
             'name' => 'min:3',
         ];
+    }
+
+    public function credit(float $value): self
+    {
+        $this->balance += $value;
+        return $this;
+    }
+
+    public function debit(float $value): self
+    {
+        $this->balance -= $value;
+        return $this;
     }
 }
