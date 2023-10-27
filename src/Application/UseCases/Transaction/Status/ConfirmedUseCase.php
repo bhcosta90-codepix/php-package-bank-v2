@@ -12,6 +12,7 @@ use CodePix\Bank\Application\Repository\AccountRepositoryInterface;
 use CodePix\Bank\Application\Repository\TransactionRepositoryInterface;
 use CodePix\Bank\Domain\DomainTransaction;
 use Costa\Entity\Exceptions\EntityException;
+use Throwable;
 
 class ConfirmedUseCase
 {
@@ -28,6 +29,7 @@ class ConfirmedUseCase
      * @throws EntityException
      * @throws UseCaseException
      * @throws DomainNotFoundException
+     * @throws Throwable
      */
     public function exec(string $id): DomainTransaction
     {
@@ -36,11 +38,19 @@ class ConfirmedUseCase
             $id
         );
 
-        $response->confirmed();
-        $this->accountRepository->save($response->account);
-        $this->eventManager->dispatch($response->getEvents());
+        try {
+            $response->confirmed();
+            if ($this->transactionRepository->save($response) && $this->accountRepository->save($response->account)) {
+                $this->databaseTransaction->commit();
+                $this->eventManager->dispatch($response->getEvents());
+                return $response;
+            }
+        } catch (Throwable $e) {
+            $this->databaseTransaction->rollback();
+            throw $e;
+        }
 
-        return $this->transactionRepository->save($response) ?: throw new UseCaseException(
+        throw new UseCaseException(
             "An error occurred while saving this transaction"
         );
     }

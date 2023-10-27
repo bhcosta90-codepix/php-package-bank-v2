@@ -20,12 +20,15 @@ describe("ConfirmedUseCase Feature Test", function () {
         $transaction = new DomainTransaction(...arrayDomainTransaction(EnumTransactionType::DEBIT, ['balance' => 10]));
         $transaction->pending();
 
+        $accountRepository = new AccountRepository();
+        $accountRepository->create($transaction->account);
+
         $transactionRepository = new TransactionRepository();
         $transactionRepository->create($transaction);
 
         $useCase = new ConfirmedUseCase(
             transactionRepository: $transactionRepository,
-            accountRepository: new AccountRepository(),
+            accountRepository: $accountRepository,
             eventManager: new EventManager(),
             databaseTransaction: new DatabaseTransaction(),
         );

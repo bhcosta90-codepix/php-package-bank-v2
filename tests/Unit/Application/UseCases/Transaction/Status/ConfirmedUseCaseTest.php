@@ -18,7 +18,7 @@ use function Tests\arrayDomainTransaction;
 use function Tests\mockTimes;
 
 
-beforeEach(function(){
+beforeEach(function () {
     $this->mockDomainTransaction = new DomainTransaction(...arrayDomainTransaction());
 });
 
@@ -35,6 +35,7 @@ describe("ConfirmedUseCase Unit Test", function () {
         mockTimes($accountRepository, 'save', $this->mockDomainTransaction->account);
 
         $mockDatabaseTransactionInterface = mock(DatabaseTransactionInterface::class);
+        mockTimes($mockDatabaseTransactionInterface, 'commit');
 
         $useCase = new ConfirmedUseCase(
             transactionRepository: $transactionRepository,
@@ -43,6 +44,27 @@ describe("ConfirmedUseCase Unit Test", function () {
             databaseTransaction: $mockDatabaseTransactionInterface,
         );
         $useCase->exec('7b9ad99b-7c44-461b-a682-b2e87e9c3c60');
+    });
+
+    test("exception commit to database transaction", function () {
+        $transactionRepository = mock(TransactionRepositoryInterface::class);
+        mockTimes($transactionRepository, 'find', $this->mockDomainTransaction);
+        mockTimes($transactionRepository, 'save', $this->mockDomainTransaction);
+
+        $accountRepository = mock(AccountRepositoryInterface::class);
+        mockTimes($accountRepository, 'save', $this->mockDomainTransaction->account);
+
+        $mockDatabaseTransactionInterface = mock(DatabaseTransactionInterface::class);
+        mockTimes($mockDatabaseTransactionInterface, 'rollback');
+        $mockDatabaseTransactionInterface->shouldReceive('commit')->andThrow(new Exception());
+
+        $useCase = new ConfirmedUseCase(
+            transactionRepository: $transactionRepository,
+            accountRepository: $accountRepository,
+            eventManager: mock(EventManagerInterface::class),
+            databaseTransaction: $mockDatabaseTransactionInterface,
+        );
+        expect(fn() => $useCase->exec('7b9ad99b-7c44-461b-a682-b2e87e9c3c60'))->toThrow(new Exception());
     });
 
     test("exception when find a transaction", function () {
@@ -67,25 +89,21 @@ describe("ConfirmedUseCase Unit Test", function () {
     });
 
     test("exception when save a transaction", function () {
-        $mockDomainTransaction = mock(DomainTransaction::class);
-
         $transactionRepository = mock(TransactionRepositoryInterface::class);
         mockTimes($transactionRepository, 'find', $this->mockDomainTransaction);
         mockTimes($transactionRepository, 'save');
 
         $mockEventManager = mock(EventManagerInterface::class);
-        mockTimes($mockEventManager, "dispatch");
-
-        $mockAccount = mock(DomainAccount::class);
 
         $accountRepository = mock(AccountRepositoryInterface::class);
-        mockTimes($accountRepository, 'save', $mockAccount);
+
+        $databaseTransaction = mock(DatabaseTransactionInterface::class);
 
         $useCase = new ConfirmedUseCase(
             transactionRepository: $transactionRepository,
             accountRepository: $accountRepository,
             eventManager: $mockEventManager,
-            databaseTransaction: new DatabaseTransaction(),
+            databaseTransaction: $databaseTransaction,
         );
 
         expect(fn() => $useCase->exec('7b9ad99b-7c44-461b-a682-b2e87e9c3c60'))->toThrow(
