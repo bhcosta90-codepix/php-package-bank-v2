@@ -10,7 +10,6 @@ use CodePix\Bank\Application\UseCases\Transaction\CreditUseCase;
 use CodePix\Bank\Domain\DomainAccount;
 use CodePix\Bank\Domain\DomainPixKey;
 use CodePix\Bank\Domain\DomainTransaction;
-use Costa\Entity\ValueObject\Uuid;
 use Tests\Stubs\Repository\AccountRepository;
 use Tests\Stubs\Repository\PixKeyRepository;
 use Tests\Stubs\Repository\TransactionRepository;

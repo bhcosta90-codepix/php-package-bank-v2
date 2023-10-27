@@ -8,6 +8,7 @@ use BRCas\CA\Contracts\Event\EventManagerInterface;
 use BRCas\CA\Exceptions\DomainNotFoundException;
 use BRCas\CA\Exceptions\UseCaseException;
 use CodePix\Bank\Application\Repository\AccountRepositoryInterface;
+use CodePix\Bank\Application\Repository\PixKeyRepositoryInterface;
 use CodePix\Bank\Application\Repository\TransactionRepositoryInterface;
 use CodePix\Bank\Domain\DomainAccount;
 use CodePix\Bank\Domain\DomainTransaction;
@@ -20,6 +21,7 @@ class DebitUseCase
     public function __construct(
         protected TransactionRepositoryInterface $transactionRepository,
         protected AccountRepositoryInterface $accountRepository,
+        protected PixKeyRepositoryInterface $pixKeyRepository,
         protected EventManagerInterface $eventManager,
     ) {
         //
@@ -52,7 +54,12 @@ class DebitUseCase
             key: $key,
             type: EnumTransactionType::DEBIT,
         );
-        $response->pending();
+
+        if (($p = $this->pixKeyRepository->find($kind, $key)) && $p->account === $accountDb) {
+            $response->error("You cannot transfer to your own account");
+        } else {
+            $response->pending();
+        }
 
         if ($response = $this->transactionRepository->create($response)) {
             $this->eventManager->dispatch($response->getEvents());
