@@ -53,18 +53,12 @@ describe("DebitUseCase Unit Test", function () {
         $pixKeyRepository = mock(PixKeyRepositoryInterface::class);
         mockTimes($pixKeyRepository, 'find', $mockDomainPixKey);
 
-        $pixKeyIntegration = mock(PixKeyIntegrationInterface::class);
-        mockTimes($pixKeyIntegration, 'register', new RegisterOutput('testing'));
-
-        $mockAccount = mock(DomainAccount::class);
-        mockTimes($mockAccount, 'toArray');
-
         $accountRepository = mock(AccountRepositoryInterface::class);
-        mockTimes($accountRepository, 'find', $mockAccount);
+        mockTimes($accountRepository, 'find', mock(DomainAccount::class));
 
         $useCase = new CreateUseCase(
             pixKeyRepository: $pixKeyRepository,
-            pixKeyIntegration: $pixKeyIntegration,
+            pixKeyIntegration: mock(PixKeyIntegrationInterface::class),
             accountRepository: $accountRepository
         );
         expect(
@@ -103,6 +97,7 @@ describe("DebitUseCase Unit Test", function () {
 
     test("Exception when you cannot integrate with the central bank", function () {
         $pixKeyRepository = mock(PixKeyRepositoryInterface::class);
+        mockTimes($pixKeyRepository, 'find');
 
         $pixKeyIntegration = mock(PixKeyIntegrationInterface::class);
         mockTimes($pixKeyIntegration, 'register');
@@ -117,6 +112,7 @@ describe("DebitUseCase Unit Test", function () {
             pixKeyIntegration: $pixKeyIntegration,
             accountRepository: $accountRepository
         );
+
         expect(
             fn() => $useCase->exec('2896e395-d646-4828-a014-1ec625243dc7', 'id', '7b9ad99b-7c44-461b-a682-b2e87e9c3c60')
         )->toThrow(

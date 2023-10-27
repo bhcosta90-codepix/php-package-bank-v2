@@ -39,6 +39,11 @@ class CreateUseCase
             throw new DomainNotFoundException(DomainAccount::class, $account);
         }
 
+        if ($key && $this->pixKeyRepository->find($kind, $key)) {
+            throw new EntityException("This pix is already registered in our database");
+        }
+
+
         if (!$pix = $this->pixKeyIntegration->register($kind, $key)) {
             throw new UseCaseException("The integration with PIX went wrong");
         }
@@ -48,11 +53,6 @@ class CreateUseCase
             kind: $kind,
             key: $pix->key,
         );
-
-        if ($key && $this->pixKeyRepository->find($kind, $key)) {
-            throw new EntityException("This pix is already registered in our database");
-        }
-
         if ($response = $this->pixKeyRepository->create($response)) {
             return $response;
         }
