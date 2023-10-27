@@ -60,7 +60,7 @@ class CreditUseCase
             type: EnumTransactionType::CREDIT
         );
 
-        $response->confirmed();
+        $response->confirmed()->completed();
 
         try {
             if (($response = $this->transactionRepository->create($response)) && $this->accountRepository->save(

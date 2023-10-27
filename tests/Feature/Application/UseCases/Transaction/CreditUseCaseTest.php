@@ -41,7 +41,7 @@ describe("CreditUseCase Feature Test", function () {
             "test@test.com"
         );
 
-        assertEquals($response->status, EnumTransactionStatus::CONFIRMED);
+        assertEquals($response->status, EnumTransactionStatus::COMPLETED);
         assertEquals(60, $pixKey->account->balance);
     });
 });
