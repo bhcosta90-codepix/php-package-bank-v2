@@ -48,7 +48,7 @@ describe("ConfirmedUseCase Unit Test", function () {
         $mockDomainTransaction = $this->createMock(DomainTransaction::class);
         $mockDomainTransaction->method('__get')
             ->with('account')
-            ->willReturn($account = mock(DomainAccount::class));
+            ->willReturn(mock(DomainAccount::class));
 
         $transactionRepository = mock(TransactionRepositoryInterface::class);
         mockTimes($transactionRepository, 'find', $mockDomainTransaction);
@@ -95,7 +95,7 @@ describe("ConfirmedUseCase Unit Test", function () {
         $mockDomainTransaction = $this->createMock(DomainTransaction::class);
         $mockDomainTransaction->method('__get')
             ->with('account')
-            ->willReturn($account = mock(DomainAccount::class));
+            ->willReturn(mock(DomainAccount::class));
 
         $transactionRepository = mock(TransactionRepositoryInterface::class);
         mockTimes($transactionRepository, 'find', $mockDomainTransaction);
