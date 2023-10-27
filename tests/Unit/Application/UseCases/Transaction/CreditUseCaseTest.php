@@ -10,6 +10,7 @@ use CodePix\Bank\Application\UseCases\Transaction\CreditUseCase;
 use CodePix\Bank\Domain\DomainAccount;
 use CodePix\Bank\Domain\DomainPixKey;
 use CodePix\Bank\Domain\DomainTransaction;
+use Costa\Entity\ValueObject\Uuid;
 use Tests\Stubs\Repository\AccountRepository;
 use Tests\Stubs\Repository\PixKeyRepository;
 use Tests\Stubs\Repository\TransactionRepository;
@@ -62,6 +63,7 @@ describe("CreditUseCase Unit Test", function () {
         );
 
         $useCase->exec(
+            id: '30efe625-546e-4d6f-b207-2fed0db79197',
             description: 'testing',
             value: 50,
             kind: 'email',
@@ -88,6 +90,7 @@ describe("CreditUseCase Unit Test", function () {
         );
 
         expect(fn() => $useCase->exec(
+            id: '30efe625-546e-4d6f-b207-2fed0db79197',
             description: 'testing',
             value: 50,
             kind: 'email',
@@ -121,6 +124,7 @@ describe("CreditUseCase Unit Test", function () {
         );
 
         expect(fn() => $useCase->exec(
+            id: '30efe625-546e-4d6f-b207-2fed0db79197',
             description: 'testing',
             value: 50,
             kind: 'email',
@@ -149,6 +153,7 @@ describe("CreditUseCase Unit Test", function () {
 
         expect(
             fn() => $useCase->exec(
+                id: '30efe625-546e-4d6f-b207-2fed0db79197',
                 description: 'testing',
                 value: 50,
                 kind: 'email',

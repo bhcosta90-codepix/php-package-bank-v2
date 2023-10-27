@@ -5,6 +5,7 @@ declare(strict_types=1);
 use CodePix\Bank\Application\UseCases\Transaction\CreditUseCase;
 use CodePix\Bank\Domain\DomainPixKey;
 use CodePix\Bank\Domain\Enum\EnumTransactionStatus;
+use Costa\Entity\ValueObject\Uuid;
 use Tests\Stubs\DatabaseTransaction;
 use Tests\Stubs\EventManager;
 use Tests\Stubs\Repository\AccountRepository;
@@ -33,6 +34,7 @@ describe("CreditUseCase Feature Test", function () {
         );
 
         $response = $useCase->exec(
+            (string) Uuid::make(),
             "testing",
             50,
             "email",

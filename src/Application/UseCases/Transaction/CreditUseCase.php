@@ -17,6 +17,7 @@ use CodePix\Bank\Domain\Enum\EnumPixType;
 use CodePix\Bank\Domain\Enum\EnumTransactionType;
 use Costa\Entity\Exceptions\EntityException;
 use Costa\Entity\Exceptions\NotificationException;
+use Costa\Entity\ValueObject\Uuid;
 use Throwable;
 
 class CreditUseCase
@@ -39,6 +40,7 @@ class CreditUseCase
      * @throws Throwable
      */
     public function exec(
+        string $id,
         string $description,
         float $value,
         string $kind,
@@ -50,7 +52,7 @@ class CreditUseCase
 
         $response = new DomainTransaction(
             account: $domainPix->account,
-            reference: null,
+            reference: new Uuid($id),
             description: $description,
             value: $value,
             kind: $kind,
