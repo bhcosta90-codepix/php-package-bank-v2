@@ -63,6 +63,7 @@ describe("DebitUseCase Unit Test", function () {
 
         $mockAccount = mock(DomainAccount::class);
         mockTimes($mockAccount, "toArray", []);
+        mockTimes($mockAccount, "id", null, 2);
 
         $accountRepository = mock(AccountRepositoryInterface::class);
         mockTimes($accountRepository, "find", $mockAccount);
@@ -86,7 +87,7 @@ describe("DebitUseCase Unit Test", function () {
             eventManager: $mockEventManager,
         );
 
-        $response = $useCase->exec(
+        $useCase->exec(
             "af4d8146-c829-46b6-8642-da0a0bdc2884",
             "testing",
             50,

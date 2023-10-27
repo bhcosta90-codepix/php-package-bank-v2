@@ -55,7 +55,7 @@ class DebitUseCase
             type: EnumTransactionType::DEBIT,
         );
 
-        if (($p = $this->pixKeyRepository->find($kind, $key)) && $p->account === $accountDb) {
+        if (($p = $this->pixKeyRepository->find($kind, $key)) && $p->account->id() == $accountDb->id()) {
             $response->error("You cannot transfer to your own account");
         } else {
             $response->pending();
