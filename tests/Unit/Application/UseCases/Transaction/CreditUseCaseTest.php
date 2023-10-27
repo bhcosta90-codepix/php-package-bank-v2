@@ -14,11 +14,23 @@ use Tests\Stubs\Repository\AccountRepository;
 use Tests\Stubs\Repository\PixKeyRepository;
 use Tests\Stubs\Repository\TransactionRepository;
 
+use function Tests\arrayDomainAccount;
 use function Tests\arrayDomainPixKey;
 use function Tests\mockTimes;
 
 beforeEach(function(){
-    $this->mockDomainPix = new DomainPixKey(...arrayDomainPixKey());
+    $this->mockDomainAcocunt = $this->getMockBuilder(DomainAccount::class)
+        ->setConstructorArgs(arrayDomainAccount())
+        ->getMock();
+
+    $this->mockDomainPix = $this->getMockBuilder(DomainPixKey::class)
+        ->onlyMethods(['__get'])
+        ->disableOriginalConstructor()
+        ->getMock();
+
+    $this->mockDomainPix->method('__get')
+        ->with('account')
+        ->willReturn($this->mockDomainAcocunt);
 });
 
 describe("CreditUseCase Unit Test", function () {

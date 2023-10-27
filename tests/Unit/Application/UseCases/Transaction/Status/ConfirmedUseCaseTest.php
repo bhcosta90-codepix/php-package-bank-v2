@@ -12,27 +12,25 @@ use CodePix\Bank\Application\UseCases\Transaction\Status\ConfirmedUseCase;
 use CodePix\Bank\Domain\DomainAccount;
 use CodePix\Bank\Domain\DomainTransaction;
 
-use Tests\Stubs\DatabaseTransaction;
-
-use function Tests\arrayDomainTransaction;
+use function Tests\arrayDomainAccount;
 use function Tests\mockTimes;
-
-
-beforeEach(function () {
-    $this->mockDomainTransaction = new DomainTransaction(...arrayDomainTransaction());
-});
 
 describe("ConfirmedUseCase Unit Test", function () {
     test("save a transaction", function () {
+        $mockDomainTransaction = $this->createMock(DomainTransaction::class);
+        $mockDomainTransaction->method('__get')
+            ->with('account')
+            ->willReturn($account = mock(DomainAccount::class));
+
         $transactionRepository = mock(TransactionRepositoryInterface::class);
-        mockTimes($transactionRepository, 'find', $this->mockDomainTransaction);
-        mockTimes($transactionRepository, 'save', $this->mockDomainTransaction);
+        mockTimes($transactionRepository, 'find', $mockDomainTransaction);
+        mockTimes($transactionRepository, 'save', $mockDomainTransaction);
 
         $mockEventManager = mock(EventManagerInterface::class);
         mockTimes($mockEventManager, "dispatch");
 
         $accountRepository = mock(AccountRepositoryInterface::class);
-        mockTimes($accountRepository, 'save', $this->mockDomainTransaction->account);
+        mockTimes($accountRepository, 'save', $account);
 
         $mockDatabaseTransactionInterface = mock(DatabaseTransactionInterface::class);
         mockTimes($mockDatabaseTransactionInterface, 'commit');
@@ -47,12 +45,17 @@ describe("ConfirmedUseCase Unit Test", function () {
     });
 
     test("exception commit to database transaction", function () {
+        $mockDomainTransaction = $this->createMock(DomainTransaction::class);
+        $mockDomainTransaction->method('__get')
+            ->with('account')
+            ->willReturn($account = mock(DomainAccount::class));
+
         $transactionRepository = mock(TransactionRepositoryInterface::class);
-        mockTimes($transactionRepository, 'find', $this->mockDomainTransaction);
-        mockTimes($transactionRepository, 'save', $this->mockDomainTransaction);
+        mockTimes($transactionRepository, 'find', $mockDomainTransaction);
+        mockTimes($transactionRepository, 'save', $mockDomainTransaction);
 
         $accountRepository = mock(AccountRepositoryInterface::class);
-        mockTimes($accountRepository, 'save', $this->mockDomainTransaction->account);
+        mockTimes($accountRepository, 'save', $mockDomainTransaction->account);
 
         $mockDatabaseTransactionInterface = mock(DatabaseTransactionInterface::class);
         mockTimes($mockDatabaseTransactionInterface, 'rollback');
@@ -89,8 +92,13 @@ describe("ConfirmedUseCase Unit Test", function () {
     });
 
     test("exception when save a transaction", function () {
+        $mockDomainTransaction = $this->createMock(DomainTransaction::class);
+        $mockDomainTransaction->method('__get')
+            ->with('account')
+            ->willReturn($account = mock(DomainAccount::class));
+
         $transactionRepository = mock(TransactionRepositoryInterface::class);
-        mockTimes($transactionRepository, 'find', $this->mockDomainTransaction);
+        mockTimes($transactionRepository, 'find', $mockDomainTransaction);
         mockTimes($transactionRepository, 'save');
 
         $mockEventManager = mock(EventManagerInterface::class);

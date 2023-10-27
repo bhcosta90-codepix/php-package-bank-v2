@@ -12,7 +12,7 @@ use Mockery\MockInterface;
 
 function mockTimes(MockInterface $mock, string $action, $response = null, $times = 1): void
 {
-    if ($response) {
+    if ($response !== null) {
         $mock->shouldReceive($action)->times($times)->andReturn($response);
     } else {
         $mock->shouldReceive($action)->times($times);
