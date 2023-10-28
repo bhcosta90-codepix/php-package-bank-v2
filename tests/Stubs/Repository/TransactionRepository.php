@@ -7,6 +7,7 @@ namespace Tests\Stubs\Repository;
 use BRCas\CA\Contracts\Items\PaginationInterface;
 use CodePix\Bank\Application\Repository\TransactionRepositoryInterface;
 use CodePix\Bank\Domain\DomainTransaction;
+use Tests\Stubs\Items\PaginationPresenter;
 
 class TransactionRepository implements TransactionRepositoryInterface
 {
@@ -32,7 +33,7 @@ class TransactionRepository implements TransactionRepositoryInterface
 
     public function myTransactions(string $account): PaginationInterface
     {
-        dd('TODO: Implement myTransactions() method.');
+        return new PaginationPresenter($this->data);
     }
 
     public function find(string $id): ?DomainTransaction
