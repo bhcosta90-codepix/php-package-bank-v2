@@ -59,7 +59,10 @@ class DomainTransaction extends Data
     {
         if ($this->status === EnumTransactionStatus::PENDING || ($this->status === EnumTransactionStatus::OPEN && $this->type == EnumTransactionType::CREDIT)) {
             $this->status = EnumTransactionStatus::CONFIRMED;
-            $this->addEvent(new EventTransactionConfirmed((string) ($this->reference ?: $this->id)));
+
+            if ($this->type == EnumTransactionType::CREDIT) {
+                $this->addEvent(new EventTransactionConfirmed((string)($this->reference ?: $this->id)));
+            }
 
             if ($this->type === EnumTransactionType::CREDIT) {
                 $this->account->credit($this->value);
@@ -80,7 +83,7 @@ class DomainTransaction extends Data
     {
         if ($this->status === EnumTransactionStatus::CONFIRMED) {
             $this->status = EnumTransactionStatus::COMPLETED;
-            $this->addEvent(new EventTransactionCompleted((string) ($this->reference ?: $this->id)));
+            $this->addEvent(new EventTransactionCompleted((string)($this->reference ?: $this->id)));
             return $this;
         }
 
