@@ -11,6 +11,7 @@ use CodePix\Bank\Application\Repository\AccountRepositoryInterface;
 use CodePix\Bank\Application\Repository\PixKeyRepositoryInterface;
 use CodePix\Bank\Application\Repository\TransactionRepositoryInterface;
 use CodePix\Bank\Domain\DomainAccount;
+use CodePix\Bank\Domain\DomainPixKey;
 use CodePix\Bank\Domain\DomainTransaction;
 use CodePix\Bank\Domain\Enum\EnumPixType;
 use CodePix\Bank\Domain\Enum\EnumTransactionType;
@@ -55,7 +56,9 @@ class DebitUseCase
             type: EnumTransactionType::DEBIT,
         );
 
-        if (($p = $this->pixKeyRepository->find($kind, $key)) && $p->account->id() == $accountDb->id()) {
+        $entityDomainPixKey = $this->pixKeyRepository->find($kind, $key);
+
+        if ($entityDomainPixKey && ($entityDomainPixKey->account->id() === $accountDb->id())) {
             $response->error("You cannot transfer to your own account");
         } else {
             $response->pending();
