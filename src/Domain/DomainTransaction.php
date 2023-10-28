@@ -66,8 +66,6 @@ class DomainTransaction extends Data
 
             if ($this->type === EnumTransactionType::CREDIT) {
                 $this->account->credit($this->value);
-            } else {
-                $this->account->debit($this->value);
             }
 
             return $this;
@@ -81,9 +79,14 @@ class DomainTransaction extends Data
      */
     public function completed(): self
     {
-        if ($this->status === EnumTransactionStatus::CONFIRMED) {
+        if ($this->status === EnumTransactionStatus::CONFIRMED || ($this->status === EnumTransactionStatus::PENDING && $this->type == EnumTransactionType::DEBIT)) {
             $this->status = EnumTransactionStatus::COMPLETED;
             $this->addEvent(new EventTransactionCompleted((string)($this->reference ?: $this->id)));
+
+            if ($this->type === EnumTransactionType::DEBIT) {
+                $this->account->debit($this->value);
+            }
+
             return $this;
         }
 
