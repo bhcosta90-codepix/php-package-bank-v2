@@ -18,7 +18,7 @@ describe("CreateUseCase Unit Test", function () {
         $useCase->exec('testing');
     });
 
-    test("execption execute", function () {
+    test("exception execute", function () {
         $mockRepository = mock(AccountRepositoryInterface::class);
         mockTimes($mockRepository, 'create');
 
