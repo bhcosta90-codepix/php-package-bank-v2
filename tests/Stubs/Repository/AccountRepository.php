@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Stubs\Repository;
 
+use BRCas\CA\Contracts\Items\PaginationInterface;
 use CodePix\Bank\Application\Repository\AccountRepositoryInterface;
 use CodePix\Bank\Domain\DomainAccount;
+use Tests\Stubs\Items\PaginationPresenter;
 
 class AccountRepository implements AccountRepositoryInterface
 {
@@ -37,5 +39,10 @@ class AccountRepository implements AccountRepositoryInterface
             }
         }
         return null;
+    }
+
+    public function myTransactions(DomainAccount $entity): PaginationInterface
+    {
+        dd('TODO: Implement myTransactions() method.');
     }
 }

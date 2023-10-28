@@ -14,6 +14,4 @@ interface TransactionRepositoryInterface
     public function create(DomainTransaction $entity): ?DomainTransaction;
 
     public function save(DomainTransaction $entity): ?DomainTransaction;
-
-    public function myTransactions(string $account): PaginationInterface;
 }

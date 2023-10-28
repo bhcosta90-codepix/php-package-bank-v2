@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Stubs\Repository;
 
-use BRCas\CA\Contracts\Items\PaginationInterface;
 use CodePix\Bank\Application\Repository\TransactionRepositoryInterface;
 use CodePix\Bank\Domain\DomainTransaction;
-use Tests\Stubs\Items\PaginationPresenter;
 
 class TransactionRepository implements TransactionRepositoryInterface
 {
@@ -29,11 +27,6 @@ class TransactionRepository implements TransactionRepositoryInterface
         }
 
         return null;
-    }
-
-    public function myTransactions(string $account): PaginationInterface
-    {
-        return new PaginationPresenter($this->data);
     }
 
     public function find(string $id): ?DomainTransaction
