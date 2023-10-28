@@ -16,4 +16,6 @@ interface AccountRepositoryInterface
     public function save(DomainAccount $entity): ?DomainAccount;
 
     public function myTransactions(DomainAccount $entity): PaginationInterface;
+
+    public function myPixKeys(DomainAccount $entity): PaginationInterface;
 }

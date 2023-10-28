@@ -45,4 +45,9 @@ class AccountRepository implements AccountRepositoryInterface
     {
         dd('TODO: Implement myTransactions() method.');
     }
+
+    public function myPixKeys(DomainAccount $entity): PaginationInterface
+    {
+        dd('TODO: Implement myPixKeys() method.');
+    }
 }
