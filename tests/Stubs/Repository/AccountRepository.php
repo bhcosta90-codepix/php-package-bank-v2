@@ -6,7 +6,6 @@ namespace Tests\Stubs\Repository;
 
 use CodePix\Bank\Application\Repository\AccountRepositoryInterface;
 use CodePix\Bank\Domain\DomainAccount;
-use CodePix\Bank\Domain\DomainTransaction;
 
 class AccountRepository implements AccountRepositoryInterface
 {
@@ -14,16 +13,6 @@ class AccountRepository implements AccountRepositoryInterface
      * @var DomainAccount[]
      */
     private array $data = [];
-
-    public function find(string $id): ?DomainAccount
-    {
-        foreach ($this->data as $data) {
-            if ((string)$data->id == $id) {
-                return $data;
-            }
-        }
-        return null;
-    }
 
     public function create(DomainAccount $entity): ?DomainAccount
     {
@@ -37,6 +26,16 @@ class AccountRepository implements AccountRepositoryInterface
             return $entity;
         }
 
+        return null;
+    }
+
+    public function find(string $id): ?DomainAccount
+    {
+        foreach ($this->data as $data) {
+            if ((string)$data->id == $id) {
+                return $data;
+            }
+        }
         return null;
     }
 }

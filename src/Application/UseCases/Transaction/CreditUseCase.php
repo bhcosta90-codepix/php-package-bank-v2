@@ -70,7 +70,7 @@ class CreditUseCase
                 $this->eventManager->dispatch($response->getEvents());
                 return $response;
             }
-        } catch(Throwable $e){
+        } catch (Throwable $e) {
             $this->databaseTransaction->rollback();
             throw $e;
         }

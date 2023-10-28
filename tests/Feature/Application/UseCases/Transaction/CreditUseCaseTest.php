@@ -34,7 +34,7 @@ describe("CreditUseCase Feature Test", function () {
         );
 
         $response = $useCase->exec(
-            (string) Uuid::make(),
+            (string)Uuid::make(),
             "testing",
             50,
             "email",

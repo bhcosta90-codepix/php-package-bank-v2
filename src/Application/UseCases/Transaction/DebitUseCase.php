@@ -11,7 +11,6 @@ use CodePix\Bank\Application\Repository\AccountRepositoryInterface;
 use CodePix\Bank\Application\Repository\PixKeyRepositoryInterface;
 use CodePix\Bank\Application\Repository\TransactionRepositoryInterface;
 use CodePix\Bank\Domain\DomainAccount;
-use CodePix\Bank\Domain\DomainPixKey;
 use CodePix\Bank\Domain\DomainTransaction;
 use CodePix\Bank\Domain\Enum\EnumPixType;
 use CodePix\Bank\Domain\Enum\EnumTransactionType;

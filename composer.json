@@ -1,5 +1,5 @@
 {
-    "name": "bhcosta90/package-bank-v2",
+    "name": "bhcosta90/package-bank",
     "autoload": {
         "psr-4": {
             "CodePix\\Bank\\": "src/"

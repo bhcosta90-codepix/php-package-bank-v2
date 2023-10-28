@@ -15,10 +15,9 @@ use Tests\Stubs\Repository\PixKeyRepository;
 use Tests\Stubs\Repository\TransactionRepository;
 
 use function Tests\arrayDomainAccount;
-use function Tests\arrayDomainPixKey;
 use function Tests\mockTimes;
 
-beforeEach(function(){
+beforeEach(function () {
     $this->mockDomainAcocunt = $this->getMockBuilder(DomainAccount::class)
         ->setConstructorArgs(arrayDomainAccount())
         ->getMock();
@@ -97,8 +96,7 @@ describe("CreditUseCase Unit Test", function () {
         ))->toThrow(new DomainNotFoundException(DomainAccount::class, "test@test.com and kind: email"));
     });
 
-    test("exception commit to database transaction", function(){
-
+    test("exception commit to database transaction", function () {
         $transactionRepository = mock(TransactionRepository::class);
         mockTimes($transactionRepository, 'create', mock(DomainTransaction::class));
 
