@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Stubs\Repository;
 
+use BRCas\CA\Contracts\Items\PaginationInterface;
 use CodePix\Bank\Application\Repository\TransactionRepositoryInterface;
 use CodePix\Bank\Domain\DomainTransaction;
 
@@ -27,6 +28,11 @@ class TransactionRepository implements TransactionRepositoryInterface
         }
 
         return null;
+    }
+
+    public function myTransactions(string $account): PaginationInterface
+    {
+        dd('TODO: Implement myTransactions() method.');
     }
 
     public function find(string $id): ?DomainTransaction
