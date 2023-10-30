@@ -5,6 +5,7 @@ declare(strict_types=1);
 use CodePix\Bank\Application\UseCases\PixKey\CreateUseCase;
 use CodePix\Bank\Domain\DomainAccount;
 use CodePix\Bank\Domain\DomainPixKey;
+use CodePix\Bank\ValueObject\Document;
 use Tests\Stubs\PixKeyIntegration;
 use Tests\Stubs\Repository\AccountRepository;
 use Tests\Stubs\Repository\PixKeyRepository;
@@ -13,7 +14,7 @@ use function PHPUnit\Framework\assertInstanceOf;
 use function PHPUnit\Framework\assertNotNull;
 
 beforeEach(function () {
-    $this->account = new DomainAccount(name: 'testing');
+    $this->account = new DomainAccount(name: 'testing', document: mock(Document::class));
 
     $this->accountRepository = new AccountRepository();
     $this->accountRepository->create($this->account);

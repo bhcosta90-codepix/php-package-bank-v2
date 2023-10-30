@@ -15,7 +15,7 @@ describe("CreateUseCase Unit Test", function () {
         mockTimes($mockRepository, 'create', mock(DomainAccount::class));
 
         $useCase = new CreateUseCase($mockRepository);
-        $useCase->exec('testing');
+        $useCase->exec('testing', '97.002.686/0001-91');
     });
 
     test("exception execute", function () {
@@ -23,6 +23,6 @@ describe("CreateUseCase Unit Test", function () {
         mockTimes($mockRepository, 'create');
 
         $useCase = new CreateUseCase($mockRepository);
-        expect(fn() => $useCase->exec('testing'))->toThrow(new UseCaseException("Unable to register this account"));
+        expect(fn() => $useCase->exec('testing', '97.002.686/0001-91'))->toThrow(new UseCaseException("Unable to register this account"));
     });
 });

@@ -7,6 +7,8 @@ namespace CodePix\Bank\Application\UseCases\Account;
 use BRCas\CA\Exceptions\UseCaseException;
 use CodePix\Bank\Application\Repository\AccountRepositoryInterface;
 use CodePix\Bank\Domain\DomainAccount;
+use CodePix\Bank\ValueObject\Document;
+use Costa\Entity\Exceptions\EntityException;
 use Costa\Entity\Exceptions\NotificationException;
 
 class CreateUseCase
@@ -20,11 +22,13 @@ class CreateUseCase
     /**
      * @throws NotificationException
      * @throws UseCaseException
+     * @throws EntityException
      */
-    public function exec(string $name): DomainAccount
+    public function exec(string $name, string $document): DomainAccount
     {
         $response = new DomainAccount(
             name: $name,
+            document: new Document($document),
         );
 
         if ($response = $this->accountRepository->create($response)) {
