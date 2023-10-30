@@ -7,6 +7,7 @@ namespace Tests;
 use CodePix\Bank\Domain\DomainAccount;
 use CodePix\Bank\Domain\Enum\EnumPixType;
 use CodePix\Bank\Domain\Enum\EnumTransactionType;
+use CodePix\Bank\ValueObject\Document;
 use Costa\Entity\ValueObject\Uuid;
 use Mockery\MockInterface;
 
@@ -45,6 +46,7 @@ function arrayDomainAccount(): array
 {
     return [
         'name' => 'testing',
+        'document' => mock(Document::class),
     ];
 }
 

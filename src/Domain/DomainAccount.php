@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace CodePix\Bank\Domain;
 
+use CodePix\Bank\ValueObject\Document;
 use Costa\Entity\Data;
 
 class DomainAccount extends Data
@@ -12,6 +13,7 @@ class DomainAccount extends Data
 
     public function __construct(
         protected string $name,
+        protected Document $document,
     ) {
         parent::__construct();
     }
