@@ -31,7 +31,7 @@ class AccountRepository implements AccountRepositoryInterface
         return null;
     }
 
-    public function find(string $id): ?DomainAccount
+    public function find(string $id, $lock = false): ?DomainAccount
     {
         foreach ($this->data as $data) {
             if ((string)$data->id == $id) {

@@ -9,7 +9,7 @@ use CodePix\Bank\Domain\DomainAccount;
 
 interface AccountRepositoryInterface
 {
-    public function find(string $id): ?DomainAccount;
+    public function find(string $id, $lock = false): ?DomainAccount;
 
     public function create(DomainAccount $entity): ?DomainAccount;
 
