@@ -39,6 +39,7 @@ class DomainTransaction extends Data
 
         if ($this->type == EnumTransactionType::DEBIT) {
             $this->addEvent(new EventTransactionCreating($this));
+            $this->account->debit($this->value);
         }
 
         return $this;
@@ -83,7 +84,6 @@ class DomainTransaction extends Data
 
             if ($this->type === EnumTransactionType::DEBIT) {
                 $this->addEvent(new EventTransactionCompleted((string)($this->reference ?: $this->id)));
-                $this->account->debit($this->value);
             }
 
             return $this;
