@@ -11,6 +11,8 @@ interface AccountRepositoryInterface
 {
     public function find(string $id, $lock = false): ?DomainAccount;
 
+    public function findByDocument(string $document): ?DomainAccount;
+
     public function create(DomainAccount $entity): ?DomainAccount;
 
     public function save(DomainAccount $entity): ?DomainAccount;

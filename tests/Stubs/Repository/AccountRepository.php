@@ -7,7 +7,6 @@ namespace Tests\Stubs\Repository;
 use BRCas\CA\Contracts\Items\PaginationInterface;
 use CodePix\Bank\Application\Repository\AccountRepositoryInterface;
 use CodePix\Bank\Domain\DomainAccount;
-use Tests\Stubs\Items\PaginationPresenter;
 
 class AccountRepository implements AccountRepositoryInterface
 {
@@ -40,6 +39,17 @@ class AccountRepository implements AccountRepositoryInterface
         }
         return null;
     }
+
+    public function findByDocument(string $document): ?DomainAccount
+    {
+        foreach ($this->data as $data) {
+            if ((string)$data->document == $document) {
+                return $data;
+            }
+        }
+        return null;
+    }
+
 
     public function myTransactions(DomainAccount $entity): PaginationInterface
     {
