@@ -39,7 +39,7 @@ class DebitUseCase
         string $kind,
         string $key
     ): DomainTransaction {
-        if (!$accountDb = $this->accountRepository->find($account, true)) {
+        if (!$accountDb = $this->accountRepository->find($account)) {
             throw new DomainNotFoundException(DomainAccount::class, $account);
         }
 
@@ -63,7 +63,7 @@ class DebitUseCase
             $response->pending();
         }
 
-        if (($response = $this->transactionRepository->create($response)) && $this->accountRepository->save($accountDb)) {
+        if ($response = $this->transactionRepository->create($response)) {
             $this->eventManager->dispatch($response->getEvents());
             return $response;
         }

@@ -28,11 +28,9 @@ describe("DebitUseCase Unit Test", function () {
 
         $mockAccount = mock(DomainAccount::class);
         mockTimes($mockAccount, "toArray", []);
-        mockTimes($mockAccount, "debit");
 
         $accountRepository = mock(AccountRepositoryInterface::class);
         mockTimes($accountRepository, "find", $mockAccount);
-        mockTimes($accountRepository, "save", $mockAccount);
 
         $mockPixKeyRepositoryInterface = mock(PixKeyRepositoryInterface::class);
         mockTimes($mockPixKeyRepositoryInterface, 'find');
@@ -69,7 +67,6 @@ describe("DebitUseCase Unit Test", function () {
 
         $accountRepository = mock(AccountRepositoryInterface::class);
         mockTimes($accountRepository, "find", $mockAccount);
-        mockTimes($accountRepository, "save", $mockAccount);
 
         $mockDomainPixKey = $this->getMockBuilder(DomainPixKey::class)
             ->onlyMethods(['__get'])
@@ -135,7 +132,6 @@ describe("DebitUseCase Unit Test", function () {
 
         $mockAccount = mock(DomainAccount::class);
         mockTimes($mockAccount, 'toArray', []);
-        mockTimes($mockAccount, 'debit');
 
         $accountRepository = mock(AccountRepositoryInterface::class);
         mockTimes($accountRepository, "find", $mockAccount);
