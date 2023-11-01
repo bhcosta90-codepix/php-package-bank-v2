@@ -26,6 +26,10 @@ class CreateUseCase
      */
     public function exec(string $name, string $document): DomainAccount
     {
+        if ($this->accountRepository->findByDocument($document)) {
+            throw new EntityException('This document already exist in database');
+        }
+
         $response = new DomainAccount(
             name: $name,
             document: new Document($document),
